@@ -11,14 +11,14 @@ spn = spanish.readlines()
 
 
 def changeToBit(index, lang):
+    bin = []
     if lang == 1:  #english
         for x in eng[index]:
-            print format(ord(x),'b')  # convert to binary starts at 97
+             bin.append(format(ord(x),'b'))  # convert to binary starts at 97
+        return bin
     else:          #spanish
-        print "h"
+        for x in spn[index]:
+             bin.append(format(ord(x),'b'))  # convert to binary starts at 97
+        return bin
 
-changeToBit(4,1)
-
-print len(spn)
-
-print "hh"
+print changeToBit(0,0)
