@@ -12,31 +12,37 @@ spn = spanish.readlines()
 
 def changeToBit(index, lang):
     bin = []
+    test = np.array((np.zeros((30,8))))
     if lang == 1:  #english
-        for x in eng[index]:
-             bin.append(list(format(ord(x),'b')))  # convert to binary starts at 97
-        bin = map(int, bin)
-        return bin
+        for x in range(len(eng[index])):
+             bin = format(ord(eng[index][x]),'b')  # convert to binary starts at 97
+             for y in range(len(bin)):
+                 test[x][y] =  bin[y]
+        return test
     else:          #spanish
-        for x in spn[index]:
-             bin.append(list(format(ord(x),'b')))  # convert to binary starts at 97
-        return bin
-e = np.array(np.zeros((20000,20,7)))
+        for x in range(len(spn[index])):
+             bin = format(ord(spn[index][x]),'b')  # convert to binary starts at 97
+             for y in range(len(bin)):
+                 test[x][y] =  bin[y]
+        return test
+
+e = np.array(np.zeros((20000,30,8)))
+s = np.array(np.zeros((20000,30,8)))
 
 for i in range(20000):
-    e[i] = changeToBit(i,0)
-    for j in range(len(e[i])):
-        e[i][j] = map (int, e[i][j])
+    b = changeToBit(i,1)
+    e[i] = b
     e[i].flatten()
+    b = changeToBit(i,0)
+    s[i] = b
+    s[i].flatten()
 
-    spn[i] = changeToBit(i,0)
-    for j in range(len(spn[i])):
-        spn[i][j] = map (int, spn[i][j])
+e.flatten()
 
-print e[0]
+print e[300]
 
-eng_train = eng[:10000]
-eng_val = eng[10000:20000]
+eng_train = e[:10000]
+eng_val = e[10000:20000]
 spn_train = eng[:10000]
 spn_val = eng[10000:20000]
 
