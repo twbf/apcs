@@ -21,17 +21,19 @@ def changeToBit(index, lang):
         for x in spn[index]:
              bin.append(list(format(ord(x),'b')))  # convert to binary starts at 97
         return bin
+e = np.array(np.zeros((20000,20,7)))
 
 for i in range(20000):
-    eng[i] = changeToBit(i,0)
-    for j in range(len(eng[i])):
-        eng[i][j] = map (int, eng[i][j])
-        
+    e[i] = changeToBit(i,0)
+    for j in range(len(e[i])):
+        e[i][j] = map (int, e[i][j])
+    e[i].flatten()
+
     spn[i] = changeToBit(i,0)
     for j in range(len(spn[i])):
         spn[i][j] = map (int, spn[i][j])
 
-print eng[0]
+print e[0]
 
 eng_train = eng[:10000]
 eng_val = eng[10000:20000]
@@ -41,7 +43,7 @@ spn_val = eng[10000:20000]
 
 def network():
     model = keras.Sequential()
-    model.add(keras.layers.Embedding(140, 16))
+    model.add(keras.layers.Flatten(140, 16))
     model.add(keras.layers.Dense(10, activation = tf.nn.relu))
     model.add(keras.layers.Dense(1, activation = tf.nn.sigmoid))
     model.summary()
