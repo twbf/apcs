@@ -6,12 +6,17 @@ import random
 
 english = open("english3.txt", "r")
 spanish = open("spanish.txt", "r")
-eng = english.readlines()
-spn = spanish.readlines()
+english = english.readlines()
+spanish = spanish.readlines()
+eng = list(set(english)-set(spanishn))
+spn = list(set(spanish)-set(english))
 random.shuffle(eng)
 random.shuffle(spn)
 
-t_size = 150000
+print len(eng)
+print len(spn)
+
+t_size = 160000
 word_size = 18
 
 def changeToBit(index, lang):
