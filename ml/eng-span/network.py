@@ -4,21 +4,24 @@ import math
 import numpy as np
 import random
 
-english = open("/Users/thomasbueler-faudree/GitHub/apcs/ml/eng-span/english3.txt", "r")
-spanish = open("/Users/thomasbueler-faudree/GitHub/apcs/ml/eng-span/spanish.txt", "r")
+english = open("english3.txt", "r")
+spanish = open("spanish.txt", "r")
 eng = english.readlines()
 spn = spanish.readlines()
+random.shuffle(eng)
+random.shuffle(spn)
 
 t_size = 150000
+word_size = 18
 
 def changeToBit(index, lang):
 
     bin = []
-    test = np.array((np.zeros((20,8))))
+    test = np.array((np.zeros((word_size,8))))
     if lang == 1:  #english
         word_length = len(eng[index])
-        if word_length>20:
-            word_length=20
+        if word_length>word_size:
+            word_length=word_size
         for x in range(word_length):
              bin = format(ord(eng[index][x]),'b')  # convert to binary starts at 97
              for y in range(len(bin)):
@@ -26,16 +29,16 @@ def changeToBit(index, lang):
         return test
     else:          #spanish
         word_length = len(spn[index])
-        if word_length>20:
-            word_length=20
+        if word_length>word_size:
+            word_length=word_size
         for x in range(word_length):
              bin = format(ord(spn[index][x]),'b')  # convert to binary starts at 97
              for y in range(len(bin)):
                  test[x][y] =  bin[y]
         return test
 
-e = np.array(np.zeros((t_size,20,8)))
-s = np.array(np.zeros((t_size,20,8)))
+e = np.array(np.zeros((t_size,word_size,8)))
+s = np.array(np.zeros((t_size,word_size,8)))
 
 for i in range(t_size):
     b = changeToBit(i,1)
@@ -45,9 +48,9 @@ for i in range(t_size):
     s[i] = b
 
 
-train_in = np.array(np.zeros((t_size,20,8)))
+train_in = np.array(np.zeros((t_size,word_size,8)))
 train_out = np.array(np.zeros((t_size)))
-val_in = np.array(np.zeros((t_size,20,8)))
+val_in = np.array(np.zeros((t_size,word_size,8)))
 val_out = np.array(np.zeros((t_size)))
 
 for x in range(0,t_size):
@@ -67,10 +70,10 @@ for x in range(0,t_size):
 
 def network():
     model = keras.Sequential()
-    model.add(keras.layers.Flatten(input_shape = (20,8)))
-    #model.add(keras.layers.Dropout(0.4))
-    model.add(keras.layers.Dense(100, activation = tf.nn.relu))
-    #model.add(keras.layers.Dropout(0.4))
+    model.add(keras.layers.Flatten(input_shape = (word_size,8)))
+    #model.add(keras.layers.Dropout(0.1))
+    model.add(keras.layers.Dense(2500, activation = tf.nn.relu))
+    #model.add(keras.layers.Dropout(0.1))
     model.add(keras.layers.Dense(50, activation = tf.nn.relu))
     model.add(keras.layers.Dense(1, activation = tf.nn.sigmoid))
     model.summary()
@@ -79,7 +82,7 @@ def network():
               metrics=['accuracy'])
     history = model.fit(train_in,
                     train_out,
-                    epochs=100,
+                    epochs=20,
                     batch_size=100,
                     validation_data=(val_in, val_out),
                     verbose=1)
