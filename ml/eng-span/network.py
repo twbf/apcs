@@ -1,3 +1,7 @@
+#Given a list of spanish and english words it learns the differences between english and spanish words
+
+# anything that ends in size is a constant
+
 import tensorflow as tf
 from tensorflow import keras
 import math
@@ -13,64 +17,58 @@ spn = list(set(spanish)-set(english))
 random.shuffle(eng)
 random.shuffle(spn)
 
-print len(eng)
-print len(spn)
+eng_size = len(eng)
+spn_size = len(spn)
+total = eng_size+spn_size
+val_size = 10000
 
-t_size = 157000
+t_size = total-val_size
 word_size = 18
 
 def changeToBit(index, lang):
-
+    if lang == 0:
+        C=eng[index]
+    else:
+        C=spn[index]
     bin = []
     test = np.array((np.zeros((word_size,8))))
-    if lang == 1:  #english
-        word_length = len(eng[index])
-        if word_length>word_size:
-            word_length=word_size
-        for x in range(word_length):
-             bin = format(ord(eng[index][x]),'b')  # convert to binary starts at 97
-             for y in range(len(bin)):
-                 test[x][y] =  bin[y]
-        return test
-    else:          #spanish
-        word_length = len(spn[index])
-        if word_length>word_size:
-            word_length=word_size
-        for x in range(word_length):
-             bin = format(ord(spn[index][x]),'b')  # convert to binary starts at 97
-             for y in range(len(bin)):
-                 test[x][y] =  bin[y]
-        return test
+    word_length = len(C)
+    if word_length>word_size:
+        word_length=word_size
+    for x in range(word_length):
+         bin = format(ord(C[x]),'b')  # convert to binary starts at 97
+         for y in range(len(bin)):
+             test[x][y] =  bin[y]
+    return test
 
-e = np.array(np.zeros((t_size,word_size,8)))
-s = np.array(np.zeros((t_size,word_size,8)))
 
-for i in range(t_size):
-    b = changeToBit(i,1)
-    e[i] = b
+words = np.array(np.zeros((total,word_size,8)))
+words_l = np.array(np.zeros((total)))
 
-    b = changeToBit(i,0)
-    s[i] = b
+for i in range(total):
+    if i<eng_size:
+        words[i] = changeToBit(i,0)
+        words_l[i] = 0
+    else:
+        words[i] = changeToBit(i-eng_size,1)
+        words_l[i] = 1
 
+c = list(zip(words, words_l))
+random.shuffle(c)
+words, words_l = zip(*c)
 
 train_in = np.array(np.zeros((t_size,word_size,8)))
 train_out = np.array(np.zeros((t_size)))
-val_in = np.array(np.zeros((t_size,word_size,8)))
-val_out = np.array(np.zeros((t_size)))
+val_in = np.array(np.zeros((val_size,word_size,8)))
+val_out = np.array(np.zeros((val_size)))
+
+for x in range(0,val_size):
+    val_in[x] = words[x]
+    val_out[x] = words_l[x]
 
 for x in range(0,t_size):
-    r = random.random()
-    if r<0.5:
-        train_in[x] = e[x]
-        train_out[x] = 0
-        val_in[x] = s[x]
-        val_out[x] = 1
-    else:
-        train_in[x] = s[x]
-        train_out[x] = 1
-        val_in[x] = e[x]
-        val_out[x] = 0
-
+    train_in[x] = words[x+val_size]
+    train_out[x] = words_l[x+val_size]
 
 
 def network():
