@@ -8,7 +8,7 @@ english = open("english3.txt", "r")
 spanish = open("spanish.txt", "r")
 english = english.readlines()
 spanish = spanish.readlines()
-eng = list(set(english)-set(spanishn))
+eng = list(set(english)-set(spanish))
 spn = list(set(spanish)-set(english))
 random.shuffle(eng)
 random.shuffle(spn)
@@ -16,7 +16,7 @@ random.shuffle(spn)
 print len(eng)
 print len(spn)
 
-t_size = 160000
+t_size = 157000
 word_size = 18
 
 def changeToBit(index, lang):
@@ -77,7 +77,7 @@ def network():
     model = keras.Sequential()
     model.add(keras.layers.Flatten(input_shape = (word_size,8)))
     #model.add(keras.layers.Dropout(0.1))
-    model.add(keras.layers.Dense(2500, activation = tf.nn.relu))
+    model.add(keras.layers.Dense(2000, activation = tf.nn.relu))
     #model.add(keras.layers.Dropout(0.1))
     model.add(keras.layers.Dense(50, activation = tf.nn.relu))
     model.add(keras.layers.Dense(1, activation = tf.nn.sigmoid))
@@ -88,7 +88,7 @@ def network():
     history = model.fit(train_in,
                     train_out,
                     epochs=20,
-                    batch_size=100,
+                    batch_size=10,
                     validation_data=(val_in, val_out),
                     verbose=1)
     predictions = model.predict(val_in)
