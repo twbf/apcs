@@ -75,7 +75,7 @@ def network():
     model = keras.Sequential()
     model.add(keras.layers.Flatten(input_shape = (word_size,8)))
     #model.add(keras.layers.Dropout(0.1))
-    model.add(keras.layers.Dense(2000, activation = tf.nn.relu))
+    model.add(keras.layers.Dense(2500, activation = tf.nn.relu))
     #model.add(keras.layers.Dropout(0.1))
     model.add(keras.layers.Dense(50, activation = tf.nn.relu))
     model.add(keras.layers.Dense(1, activation = tf.nn.sigmoid))
@@ -85,8 +85,8 @@ def network():
               metrics=['accuracy'])
     history = model.fit(train_in,
                     train_out,
-                    epochs=20,
-                    batch_size=10,
+                    epochs=30,
+                    batch_size=200,
                     validation_data=(val_in, val_out),
                     verbose=1)
     predictions = model.predict(val_in)
