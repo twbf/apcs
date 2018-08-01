@@ -81,7 +81,7 @@ def network():
     model.add(keras.layers.Dense(1, activation = tf.nn.sigmoid))
     model.summary()
     model.compile(optimizer=tf.train.AdamOptimizer(),
-              loss='binary_crossentropy',
+              loss='logcosh',
               metrics=['accuracy'])
     history = model.fit(train_in,
                     train_out,
