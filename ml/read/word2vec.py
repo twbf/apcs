@@ -9,34 +9,14 @@ import sys
 
 file_path = "/Users/thomasbueler-faudree/GitHub/mldata/1-billion-word-language-modeling-benchmark-r13output/training-monolingual.tokenized.shuffled/"
 
-data = open (file_path + "news.en-00001-of-00100", "r")
+vocabulary = open (file_path + "news.en-00001-of-00100", "r")
 
-data = data.read().split()
+vocabulary = vocabulary.read().split()
 
-num_words = 100
-emb_size = 100
-batch_size = 256
-
-train_in = []
-train_out = []
-
-for x in range(num_words-1):
-    if data[x-1]:
-        train_in.append(data[x])
-        train_out.append(data[x-1])
-    if data[x+1]:
-        train_in.append(data[x])
-        train_out.append(data[x+1])
-
-for x in range(100):
-    print train_in[x] + ', ' + train_out[x]
-
-
-vocabulary = data
 print('Data size', len(vocabulary))
 
 # Step 2: Build the dictionary and replace rare words with UNK token.
-vocabulary_size = 50000
+vocabulary_size = 100000
 
 
 def build_dataset(words, n_words):
@@ -121,7 +101,7 @@ num_sampled = 64  # Number of negative examples to sample.
 # construction are also the most frequent. These 3 variables are used only for
 # displaying model accuracy, they don't affect calculation.
 valid_size = 16  # Random set of words to evaluate similarity on.
-valid_window = 100  # Only pick dev samples in the head of the distribution.
+valid_window = 1000  # Only pick dev samples in the head of the distribution.
 valid_examples = np.random.choice(valid_window, valid_size, replace=False)
 
 graph = tf.Graph()
@@ -138,8 +118,7 @@ with graph.as_default():
   with tf.device('/cpu:0'):
     # Look up embeddings for inputs.
     with tf.name_scope('embeddings'):
-      embeddings = tf.Variable(
-          tf.random_uniform([vocabulary_size, embedding_size], -1.0, 1.0))
+      embeddings = tf.Variable(tf.random_uniform([vocabulary_size, embedding_size], -1.0, 1.0))
       embed = tf.nn.embedding_lookup(embeddings, train_inputs)
 
     # Construct the variables for the NCE loss
@@ -186,9 +165,6 @@ with graph.as_default():
 
   # Add variable initializer.
   init = tf.global_variables_initializer()
-
-  # Create a saver.
-  saver = tf.train.Saver()
 
 # Step 5: Begin training.
 num_steps = 100001
