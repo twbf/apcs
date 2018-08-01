@@ -1,38 +1,88 @@
-import tensorflow as tf
-from tensorflow import keras
-import numpy as np
-import math
-import random
+# Copyright 2015 The TensorFlow Authors. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ==============================================================================
+"""Basic word2vec example."""
+
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 import collections
+import math
 import os
 import sys
+import argparse
+import random
+from tempfile import gettempdir
+import zipfile
 
-file_path = "/Users/thomasbueler-faudree/GitHub/mldata/1-billion-word-language-modeling-benchmark-r13output/training-monolingual.tokenized.shuffled/"
+import numpy as np
+from six.moves import urllib
+from six.moves import xrange  # pylint: disable=redefined-builtin
+import tensorflow as tf
 
-data = open (file_path + "news.en-00001-of-00100", "r")
+from tensorflow.contrib.tensorboard.plugins import projector
 
-data = data.read().split()
+# Give a folder path as an argument with '--log_dir' to save
+# TensorBoard summaries. Default is a log folder in current directory.
+current_path = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-num_words = 100
-emb_size = 100
-batch_size = 256
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    '--log_dir',
+    type=str,
+    default=os.path.join(current_path, 'log'),
+    help='The log directory for TensorBoard summaries.')
+FLAGS, unparsed = parser.parse_known_args()
 
-train_in = []
-train_out = []
+# Create the directory for TensorBoard variables if there is not.
+if not os.path.exists(FLAGS.log_dir):
+  os.makedirs(FLAGS.log_dir)
 
-for x in range(num_words-1):
-    if data[x-1]:
-        train_in.append(data[x])
-        train_out.append(data[x-1])
-    if data[x+1]:
-        train_in.append(data[x])
-        train_out.append(data[x+1])
-
-for x in range(100):
-    print train_in[x] + ', ' + train_out[x]
+# Step 1: Download the data.
+url = 'http://mattmahoney.net/dc/'
 
 
-vocabulary = data
+# pylint: disable=redefined-outer-name
+def maybe_download(filename, expected_bytes):
+  """Download a file if not present, and make sure it's the right size."""
+  local_filename = os.path.join(gettempdir(), filename)
+  if not os.path.exists(local_filename):
+    local_filename, _ = urllib.request.urlretrieve(url + filename,
+                                                   local_filename)
+  statinfo = os.stat(local_filename)
+  if statinfo.st_size == expected_bytes:
+    print('Found and verified', filename)
+  else:
+    print(statinfo.st_size)
+    raise Exception('Failed to verify ' + local_filename +
+                    '. Can you get to it with a browser?')
+  return local_filename
+
+
+filename = maybe_download('text8.zip', 31344016)
+
+
+# Read the data into a list of strings.
+def read_data(filename):
+  """Extract the first file enclosed in a zip file as a list of words."""
+  with zipfile.ZipFile(filename) as f:
+    data = tf.compat.as_str(f.read(f.namelist()[0])).split()
+  return data
+
+
+vocabulary = read_data(filename)
 print('Data size', len(vocabulary))
 
 # Step 2: Build the dictionary and replace rare words with UNK token.
@@ -194,6 +244,8 @@ with graph.as_default():
 num_steps = 100001
 
 with tf.Session(graph=graph) as session:
+  # Open a writer to write summaries.
+  writer = tf.summary.FileWriter(FLAGS.log_dir, session.graph)
 
   # We must initialize all variables before we use them.
   init.run()
@@ -218,6 +270,12 @@ with tf.Session(graph=graph) as session:
         run_metadata=run_metadata)
     average_loss += loss_val
 
+    # Add returned summaries to writer in each step.
+    writer.add_summary(summary, step)
+    # Add metadata to visualize the graph for the last run.
+    if step == (num_steps - 1):
+      writer.add_run_metadata(run_metadata, 'step%d' % step)
+
     if step % 2000 == 0:
       if step > 0:
         average_loss /= 2000
@@ -238,3 +296,58 @@ with tf.Session(graph=graph) as session:
           log_str = '%s %s,' % (log_str, close_word)
         print(log_str)
   final_embeddings = normalized_embeddings.eval()
+
+  # Write corresponding labels for the embeddings.
+  with open(FLAGS.log_dir + '/metadata.tsv', 'w') as f:
+    for i in xrange(vocabulary_size):
+      f.write(reverse_dictionary[i] + '\n')
+
+  # Save the model for checkpoints.
+  saver.save(session, os.path.join(FLAGS.log_dir, 'model.ckpt'))
+
+  # Create a configuration for visualizing embeddings with the labels in TensorBoard.
+  config = projector.ProjectorConfig()
+  embedding_conf = config.embeddings.add()
+  embedding_conf.tensor_name = embeddings.name
+  embedding_conf.metadata_path = os.path.join(FLAGS.log_dir, 'metadata.tsv')
+  projector.visualize_embeddings(writer, config)
+
+writer.close()
+
+# Step 6: Visualize the embeddings.
+
+
+# pylint: disable=missing-docstring
+# Function to draw visualization of distance between embeddings.
+def plot_with_labels(low_dim_embs, labels, filename):
+  assert low_dim_embs.shape[0] >= len(labels), 'More labels than embeddings'
+  plt.figure(figsize=(18, 18))  # in inches
+  for i, label in enumerate(labels):
+    x, y = low_dim_embs[i, :]
+    plt.scatter(x, y)
+    plt.annotate(
+        label,
+        xy=(x, y),
+        xytext=(5, 2),
+        textcoords='offset points',
+        ha='right',
+        va='bottom')
+
+  plt.savefig(filename)
+
+
+try:
+  # pylint: disable=g-import-not-at-top
+  from sklearn.manifold import TSNE
+  import matplotlib.pyplot as plt
+
+  tsne = TSNE(
+      perplexity=30, n_components=2, init='pca', n_iter=5000, method='exact')
+  plot_only = 500
+  low_dim_embs = tsne.fit_transform(final_embeddings[:plot_only, :])
+  labels = [reverse_dictionary[i] for i in xrange(plot_only)]
+  plot_with_labels(low_dim_embs, labels, os.path.join(gettempdir(), 'tsne.png'))
+
+except ImportError as ex:
+  print('Please install sklearn, matplotlib, and scipy to show embeddings.')
+  print(ex)
