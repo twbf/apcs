@@ -12,6 +12,7 @@ file_path = "/Users/thomasbueler-faudree/GitHub/mldata/1-billion-word-language-m
 vocabulary = open (file_path + "news.en-00001-of-00100", "r")
 
 vocabulary = vocabulary.read().split()
+vocabulary = map(str.lower, vocabulary)
 
 print('Data size', len(vocabulary))
 
@@ -206,6 +207,7 @@ with tf.Session(graph=graph) as session:
       sim = similarity.eval()
       for i in xrange(valid_size):
         valid_word = reverse_dictionary[valid_examples[i]]
+        print valid_word
         top_k = 8  # number of nearest neighbors
         nearest = (-sim[i, :]).argsort()[1:top_k + 1]
         log_str = 'Nearest to %s:' % valid_word
