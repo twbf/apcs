@@ -11,7 +11,7 @@ data = map(str.lower, data)
 
 
 num_words = 10000
-dem_size = 2
+dem_size = 100
 
 
 dictionary = dict()
@@ -53,18 +53,21 @@ def network():
     #model.add(keras.layers.Flatten(input_shape = (dem_size)))
     model.add(keras.layers.Dense(dem_size, input_shape = (dem_size,)))
     model.add(keras.layers.Dense(1000, activation = tf.nn.relu))
+    model.add(keras.layers.Dense(1000, activation = tf.nn.relu))
     model.add(keras.layers.Dense(dem_size, activation = tf.nn.sigmoid))
     model.summary()
     model.compile(optimizer=tf.train.AdamOptimizer(),
-              loss='logcosh',
+              loss='nce_loss',
               metrics=['accuracy'])
     history = model.fit(train_in,
                     train_out,
-                    epochs=30,
+                    epochs=10,
                     batch_size=100,
                     #validation_data=(val_in, val_out),
                     verbose=1)
-    #predictions = model.predict(val_in)
+    predictions = model.predict(train_in)
+    for x in range(100):
+        print predictions[x]
 
 print('Data size', len(data))
 network()
