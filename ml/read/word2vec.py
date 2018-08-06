@@ -83,12 +83,6 @@ def generate_batch(batch_size, num_skips, skip_window):
   data_index = (data_index + len(data) - span) % len(data)
   return batch, labels
 
-
-batch, labels = generate_batch(batch_size=8, num_skips=2, skip_window=1)
-for i in range(8):
-  print(batch[i], reverse_dictionary[batch[i]], '->', labels[i, 0],
-        reverse_dictionary[labels[i, 0]])
-
 # Step 4: Build and train a skip-gram model.
 
 batch_size = 128
@@ -174,7 +168,6 @@ with tf.Session(graph=graph) as session:
 
   # We must initialize all variables before we use them.
   init.run()
-  print('Initialized')
 
   average_loss = 0
   for step in xrange(num_steps):
@@ -207,7 +200,6 @@ with tf.Session(graph=graph) as session:
       sim = similarity.eval()
       for i in xrange(valid_size):
         valid_word = reverse_dictionary[valid_examples[i]]
-        print valid_word
         top_k = 8  # number of nearest neighbors
         nearest = (-sim[i, :]).argsort()[1:top_k + 1]
         log_str = 'Nearest to %s:' % valid_word
