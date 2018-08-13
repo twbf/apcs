@@ -15,8 +15,10 @@ english = english.readlines()
 spanish = spanish.readlines()
 eng = list(set(english)-set(spanish))
 spn = list(set(spanish)-set(english))
-random.shuffle(eng)
-random.shuffle(spn)
+print(english[0])
+print(eng[2])
+#random.shuffle(eng)
+#random.shuffle(spn)
 
 eng_size = len(eng)
 spn_size = len(spn)
@@ -33,7 +35,7 @@ def changeToBit(index, lang):
         C=spn[index]
     bin = []
     test = np.array((np.zeros((word_size,8))))
-    word_length = len(C)
+    word_length = len(C)-1
     if word_length>word_size:
         word_length=word_size
     for x in range(word_length):
@@ -53,6 +55,8 @@ for i in range(total):
     else:
         words[i] = changeToBit(i-eng_size,1)
         words_l[i] = 1
+
+print words[2]
 
 c = list(zip(words, words_l))
 random.shuffle(c)
@@ -96,8 +100,9 @@ def network():
                     epochs=10,
                     batch_size=200,
                     validation_data=(val_in, val_out),
-                    callbacks = [cp_callback],
+                    #callbacks = [cp_callback],
                     verbose=1)
+    model.save('model.h5')
     predictions = model.predict(val_in)
     for x in range(100):
         language = val_out[x]
