@@ -7,6 +7,7 @@ from tensorflow import keras
 import math
 import numpy as np
 import random
+import os
 
 english = open("english3.txt", "r")
 spanish = open("spanish.txt", "r")
@@ -73,9 +74,16 @@ for x in range(0,t_size):
 
 def network():
     model = keras.Sequential()
+
+    file_path = "training_2/cp.ckpt"
+    directory = os.path.dirname(file_path)
+    cp_callback = tf.keras.callbacks.ModelCheckpoint(file_path,
+                                                 save_weights_only=True,
+                                                 verbose=1)
+
     model.add(keras.layers.Flatten(input_shape = (word_size,8)))
     #model.add(keras.layers.Dropout(0.1))
-    model.add(keras.layers.Dense(2500, activation = tf.nn.relu))
+    model.add(keras.layers.Dense(1000, activation = tf.nn.relu))
     #model.add(keras.layers.Dropout(0.1))
     model.add(keras.layers.Dense(50, activation = tf.nn.relu))
     model.add(keras.layers.Dense(1, activation = tf.nn.sigmoid))
@@ -85,9 +93,10 @@ def network():
               metrics=['accuracy'])
     history = model.fit(train_in,
                     train_out,
-                    epochs=30,
+                    epochs=10,
                     batch_size=200,
                     validation_data=(val_in, val_out),
+                    callbacks = [cp_callback],
                     verbose=1)
     predictions = model.predict(val_in)
     for x in range(100):
