@@ -36,7 +36,7 @@ while (word != "/exit"):
     model = keras.models.load_model('model.h5')
     predictions = model.predict(words)
     if  predictions[0]>0.5:
-        print("Spanish")
+        print "Spanish    confidence =" , round(float(predictions[0])*100,3) , "%"
     else:
-        print("English")
+        print "English    confidence =" , round(100 - float(predictions[0])*100,3) , "%"
     #print(words)

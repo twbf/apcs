@@ -9,8 +9,8 @@ import numpy as np
 import random
 import os
 
-english = open("english3.txt", "r")
-spanish = open("spanish.txt", "r")
+english = open("text_data/english3.txt", "r")
+spanish = open("text_data/spanish.txt", "r")
 english = english.readlines()
 spanish = spanish.readlines()
 eng = list(set(english)-set(spanish))
