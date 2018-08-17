@@ -4,6 +4,8 @@
 #can use other prgrams too
 #if local connection isn't avalable then it goes through global wifi server
 
+#Notes: Need to solve global IP bug
+
 LIP="192.168.1.5"
 GIP="24.237.37.131"
 
@@ -17,4 +19,9 @@ elif [ $? -eq 255 ]; then
     IP="$GIP"
 fi
 
-echo $IP
+#copy files over and run commands
+scp -r $PWD thomas@192.168.1.5:/home/thomas/tmp
+ssh thomas@$LIP << EOF
+    dir= basename $PWD
+    $1 $dir/$2
+EOF
