@@ -1,8 +1,6 @@
+class Lady{
 
-class Lady
-{
-    public static void main(String args[])
-    {
+    public static void main(String args[]){
         String[] x  = new String[5];
         x[0] = "fly";
         x[1] = "spider";
