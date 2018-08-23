@@ -2,5 +2,5 @@
 
 #activate tensorflow
 
-cd /Users/thomasbueler-faudree/Github
+sudo cd /Users/thomasbueler-faudree/Github/
 source ./bin/activate
