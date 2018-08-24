@@ -1,5 +1,5 @@
 class Ec6{
-    public static final int SIZE = 6;
+    public static final int SIZE = 2;
     public static void main(String args[]){
         spire();
         pyramid();
