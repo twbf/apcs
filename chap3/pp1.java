@@ -1,4 +1,4 @@
-class Ec6{
+class Pp1{
     public static void main(String args[]){
         tree(3,4);
         System.out.println('      *      ');
@@ -9,6 +9,6 @@ class Ec6{
         for (int i = 0; i<seg; i++){
 
         }
-        
+
     }
 }
