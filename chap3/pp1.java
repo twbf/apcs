@@ -7,7 +7,7 @@ class Pp1{
     }
     public static void tree(int seg, int h){
         for (int i = 0; i<seg; i++){
-
+            
         }
 
     }
