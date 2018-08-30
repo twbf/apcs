@@ -7,5 +7,5 @@ start = 141556 #my s-number
 
 for i in range(1):
      s_num = "s" + str(start)
-     r = requests.post(url, data = {'account':s_num, "pw":s_num})
+     r = requests.post(url, data = {'account':, 'pw':})
      print(r.content)
