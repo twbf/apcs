@@ -1,5 +1,4 @@
 #!/usr/bin/env  bash
-
 #format: gaz.sh python file
 #can use other prgrams too
 #if local connection isn't avalable then it goes through global wifi server
@@ -20,8 +19,18 @@ elif [ $? -eq 255 ]; then
 fi
 
 #copy files over and run commands
-scp -r $PWD thomas@192.168.1.5:/home/thomas/tmp
+
+cur=$(pwd)
+
+
+cd /Users/thomasbueler-faudree/Github/
+git add $cur
+git commit -m 'automated test'
+git push origin master
+
+
 ssh thomas@$LIP << EOF
-    dir= basename $PWD
+    cd mac/
+    git pull
     $1 $dir/$2
 EOF
