@@ -9,8 +9,8 @@ import numpy as np
 import random
 import os
 
-english = open("ml/eng-span/text_data/english3.txt", "r")
-spanish = open("ml/eng-span/text_data/spanish.txt", "r")
+english = open("apcs/ml/eng-span/text_data/english3.txt", "r")
+spanish = open("apcs/ml/eng-span/text_data/spanish.txt", "r")
 english = english.readlines()
 spanish = spanish.readlines()
 eng = list(set(english)-set(spanish))
@@ -97,12 +97,12 @@ def network():
               metrics=['accuracy'])
     history = model.fit(train_in,
                     train_out,
-                    epochs=10,
+                    epochs=3,
                     batch_size=200,
                     validation_data=(val_in, val_out),
                     #callbacks = [cp_callback],
                     verbose=1)
-    model.save('model.h5')
+    model.save('apcs/ml/eng-span/model.h5')
     predictions = model.predict(val_in)
     for x in range(100):
         language = val_out[x]

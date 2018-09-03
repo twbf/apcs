@@ -32,7 +32,13 @@ ssh thomas@$LIP /bin/bash << EOF
     cd mac/
     git pull
     $1 $2
+    git add .
+    git commit -m 'auto server'
+    git push origin master
 EOF
+
+cd /Users/thomasbueler-faudree/Github/
+git pull origin master
 
 # cd /home/
 # git pull
