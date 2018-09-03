@@ -88,8 +88,9 @@ def network():
     model.add(keras.layers.Flatten(input_shape = (word_size,8)))
     #model.add(keras.layers.Dropout(0.1))
     model.add(keras.layers.Dense(1000, activation = tf.nn.relu))
+    model.add(keras.layers.Dense(2000, activation = tf.nn.relu))
     #model.add(keras.layers.Dropout(0.1))
-    model.add(keras.layers.Dense(50, activation = tf.nn.relu))
+    model.add(keras.layers.Dense(100, activation = tf.nn.relu))
     model.add(keras.layers.Dense(1, activation = tf.nn.sigmoid))
     model.summary()
     model.compile(optimizer=tf.train.AdamOptimizer(),
@@ -97,7 +98,7 @@ def network():
               metrics=['accuracy'])
     history = model.fit(train_in,
                     train_out,
-                    epochs=3,
+                    epochs=100,
                     batch_size=200,
                     validation_data=(val_in, val_out),
                     #callbacks = [cp_callback],
