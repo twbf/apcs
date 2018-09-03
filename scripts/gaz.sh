@@ -27,9 +27,13 @@ git add $cur
 git commit -m 'automated test'
 git push origin master
 
-ssh thomas@$IP << 'EOF'
-    ls
-    bash cd /home/
+ssh thomas@$LIP /bin/bash << EOF
+    source ~/tensorflow/venv/bin/activate
+    cd mac/
     git pull
-    $1 $dir/$2
+    $1 $2
 EOF
+
+# cd /home/
+# git pull
+# $1 $dir/$2
