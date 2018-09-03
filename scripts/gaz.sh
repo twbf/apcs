@@ -9,7 +9,7 @@ LIP="192.168.1.5"
 GIP="24.237.37.131"
 
 #check whether user is local
-ssh -q thomas@$LIP exit
+ssh -q ConnectTimeout=5 thomas@$LIP exit
 
 #set IP adress to be the right one
 if [ $? -eq 0 ]; then
@@ -22,15 +22,14 @@ fi
 
 cur=$(pwd)
 
-
 cd /Users/thomasbueler-faudree/Github/
 git add $cur
 git commit -m 'automated test'
 git push origin master
 
-
-ssh thomas@$LIP << EOF
-    cd mac/
+ssh thomas@$IP << 'EOF'
+    ls
+    bash cd /home/
     git pull
     $1 $dir/$2
 EOF
