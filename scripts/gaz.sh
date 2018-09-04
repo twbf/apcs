@@ -13,9 +13,9 @@ ssh -q ConnectTimeout=5 thomas@$LIP exit
 
 #set IP adress to be the right one
 if [ $? -eq 0 ]; then
-    IP="$LIP"
+    IP=$LIP
 elif [ $? -eq 255 ]; then
-    IP="$GIP"
+    IP=$GIP
 fi
 
 #copy files over and run commands
@@ -27,7 +27,7 @@ git add $cur
 git commit -m 'automated test'
 git push origin master
 
-ssh thomas@$LIP /bin/bash << EOF
+ssh thomas@$IP /bin/bash << EOF
     source ~/tensorflow/venv/bin/activate
     cd mac/
     git pull
