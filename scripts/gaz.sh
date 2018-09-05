@@ -19,6 +19,7 @@ elif [ $? -eq 255 ]; then
 fi
 
 #copy files over and run commands
+SET UPSTREAM
 
 cur=$(pwd)
 
