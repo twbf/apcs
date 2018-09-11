@@ -15,7 +15,7 @@ class Pp5{
     public static void layout(Graphics g, int x, int y, int numPairs, int numRows, int size, int offset){
         int off = 0;
         for(int i = 0; i<numRows; i++){
-            int nY = y + i*size;
+            int nY = y + i*(size + 2);
             if (i%2 == 0){
                 off = offset;
             }
@@ -23,17 +23,17 @@ class Pp5{
                 off = 0;
             }
             for(int j = 0; j<numPairs; j++){
-                int nX = x + size*(2*j - 1) + off;
+                int nX = x + size*2*j + off;
 
+                //black
                 g.setColor(Color.BLACK);
                 g.fillRect(nX, nY, size, size);
-                g.setColor(Color.WHITE);
-                g.drawLine(nX+5, nY+5, nX+size-5, nY+size-5);
-                g.drawLine(nX+5, nY+5, nX+size-5, nY+size-5);
-                //black
+                g.setColor(Color.GRAY);
+                g.drawLine(nX, nY, nX+size, nY+size);
+                g.drawLine(nX+size, nY, nX, nY+size);
 
                 //white
-                nX = x + 2*j*size + off;
+                nX = x + (2*j+1)*size + off;
                 g.setColor(Color.WHITE);
                 g.fillRect(nX, nY, size, size);
             }
