@@ -16,10 +16,10 @@ class Pp5{
         int off = 0;
         for(int i = 0; i<numRows; i++){
             int nY = y + i*(size + 2);
-            if (i%2 == 0){
+            if (i%2 == 1){
                 off = offset;
             }
-            if (i%2 == 1){
+            if (i%2 == 0){
                 off = 0;
             }
             for(int j = 0; j<numPairs; j++){
