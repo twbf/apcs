@@ -14,14 +14,20 @@ class Pp5{
     }
     public static void layout(Graphics g, int x, int y, int numPairs, int numRows, int size, int offset){
         int off = 0;
+
+        //moves through rows
         for(int i = 0; i<numRows; i++){
             int nY = y + i*(size + 2);
+
+            //sets the offset
             if (i%2 == 1){
                 off = offset;
             }
             if (i%2 == 0){
                 off = 0;
             }
+
+            //moves through collums
             for(int j = 0; j<numPairs; j++){
                 int nX = x + size*2*j + off;
 
