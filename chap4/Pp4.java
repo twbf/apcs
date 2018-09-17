@@ -1,13 +1,18 @@
+import java.util.Scanner;
+import java.util.*;
+
 class Pp4{
     public static void main(String args[]){
 
         Scanner sc = new Scanner(System.in);
         String todayMonth = sc.nextLine();
         int todayDay = sc.nextInt();
-        String firstMonth = sc.nextLine();
-        int firstDay = sc.nextInt();
-        String secMonth = sc.nextLine();
-        int secDay = sc.nextInt();
+        Scanner s = new Scanner(System.in);
+        String firstMonth = s.nextLine();
+        int firstDay = s.nextInt();
+        Scanner c = new Scanner(System.in);
+        String secMonth = c.nextLine();
+        int secDay = c.nextInt();
 
         int today = findAbsolute(todayMonth,todayDay);
         int first = findAbsolute(firstMonth,firstDay);
@@ -23,16 +28,17 @@ class Pp4{
         }
 
     }
-    public static void distance(int today, int birthday){
-        int dis = today - birthday;
+    public static int distance(int today, int birthday){
+        int dis = birthday-today;
         if (dis<0){
             dis += 365;
         }
         System.out.println(dis);
-        return dis
+        return dis;
     }
 
     public static int findAbsolute(String month, int day){
+        Map<String, String> monthOrder = new HashMap<String, String>();
         monthOrder.put("january", "1");
         monthOrder.put("febuary", "2");
         monthOrder.put("march", "3");
@@ -46,13 +52,13 @@ class Pp4{
         monthOrder.put("november", "11");
         monthOrder.put("december", "12");
 
-        int dayOrder[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
+        int[] dayOrder = {31,28,31,30,31,30,31,31,30,31,30,31};
 
         month = month.toLowerCase();
-        int numMonth = Integer.parseInt(map.get(month));
+        int numMonth = Integer.parseInt(monthOrder.get(month));
         int sum = 0;
-        for(int i = 1; i < numMonth - 1; i++){
-            sum += dayOrder[i-1];
+        for(int i = 0; i < numMonth - 1; i++){
+            sum += dayOrder[i];
         }
         return sum + day;
     }
