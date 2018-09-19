@@ -22,9 +22,9 @@ class Pp4{
         int disSec = distance(today,sec);
 
         if (disFirst < disSec){
-            System.out.println("First");
+            System.out.println("First birthday is closer");
         } else{
-            System.out.println("Secound");
+            System.out.println("Secoundbirthday is closer");
         }
 
     }
