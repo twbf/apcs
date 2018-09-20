@@ -35,7 +35,7 @@ class Ex{
                 notesInLine = len-count;
             }
             for(int i= 0; i<notesInLine; i++){
-                xPosition+=notes[count].getLength()
+                xPosition+=notes[count].getLength();
                 if (i%4 == 0){
                     s.drawLine(15+i*spaceing, 20 + j*100 + 10, 15+i*spaceing, 20 + j*100 + space*5 - 7);
                 }
