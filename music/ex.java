@@ -6,7 +6,7 @@ class Ex{
         int MEASURLine = 3;
         int NOTES = 4;
         int noteSpace = 64;
-        Note[] notes = {new Note("a"), new Note("a")};
+        Musicnote[] notes = {new Musicnote("a"), new Musicnote("a")};
         int len = notes.length;
         int LINES = findLines(len, NOTES, MEASURLine);
         DrawingPanel g = new DrawingPanel(500, LINES * 150);
