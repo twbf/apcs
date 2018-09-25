@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.util.*;
 
+//doesn't run because of drawing panel classes aren't in the chapters
+
 class Ex{
     public static void main(String args[]){
         int MEASURLine = 3;
