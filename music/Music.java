@@ -10,27 +10,30 @@ public class Music implements JMC{
         Part p = new Part("Piano", PIANO, 0);
         Phrase phr = new Phrase();
         for(int i = 0; i<10;i++){
-            phr.addNote(new Note(JMC.C4, i/2));
+            phr.addNote(new Note(JMC.A4, i/2));
         }
         String[] input = {"a","a"};
         show(input);
-        //Play.midi(phr);
+        Play.midi(phr);
         p.addPhrase(phr);
         s.addPart(p);
         View.show(s);
     }
     public static void show(String[] input){
-        int MEASURLine = 3;
-        int NOTES = 4;
-        int noteSpace = 64;
-        Musicnote[] notes = {new Musicnote(input[0]), new Musicnote(input[1])};
+        //dimensioning the staff
+        int MEASURELINE = 3;
+        int NOTES = 4;//number of notes per measure
+
+        Musicnote[] notes = {new Musicnote(input[0]), new Musicnote(input[1])}; //  array of notes
         int len = notes.length;
-        int LINES = findLines(len, NOTES, MEASURLine);
+        int LINES = findLines(len, NOTES, MEASURELINE); // find number of lines
         DrawingPanel g = new DrawingPanel(500, LINES * 150);
         Graphics s = g.getGraphics();
-        int size = 40*NOTES*MEASURLine;
+
+        int size = 40*NOTES*MEASURELINE;
         int space = 16;
 
+        //mapping note letters to a number sequence
         Map<String, String> map = new HashMap<String, String>();
         map.put("a", "5");
         map.put("b", "4");
@@ -39,8 +42,8 @@ public class Music implements JMC{
         map.put("e", "1");
 
         int count = 0;
-        int spaceing = size/(NOTES*MEASURLine);
-        int notesInLine = NOTES*MEASURLine;
+        int spaceing = size/(NOTES*MEASURELINE);
+        int notesInLine = NOTES*MEASURELINE;
 
         int xPosition = 0;
         for (int j = 0; j < LINES; j++){
@@ -48,7 +51,7 @@ public class Music implements JMC{
             for (int i = 0; i<5; i++){
                 s.drawLine(15, 30 + space*i + j*100, 15+size, 30 + space*i + j*100);
             }
-            if ((len - count) < NOTES*MEASURLine){
+            if ((len - count) < NOTES*MEASURELINE){
                 notesInLine = len-count;
             }
             for(int i= 0; i<notesInLine; i++){
@@ -65,6 +68,8 @@ public class Music implements JMC{
     }
 
     public static int findLines(int len, int notes, int measure){
+
+        // finds the number of
         double l = len;
         double n = notes;
         double m = measure;
