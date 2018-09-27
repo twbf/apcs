@@ -4,6 +4,8 @@ import jm.util.*;
 import java.awt.*;
 import java.util.*;
 
+// use the fact that the phrase and note class has the option of getting note frequency
+
 public class Music implements JMC{
     public static void main(String[] args) {
         Score s = new Score("JMDemo - Show Fractal");
@@ -14,11 +16,13 @@ public class Music implements JMC{
         }
         String[] input = {"a","a"};
         show(input);
+        show(phr);
         Play.midi(phr);
         p.addPhrase(phr);
         s.addPart(p);
         View.show(s);
     }
+
     public static void show(String[] input){
         //dimensioning the staff
         int MEASURELINE = 3;
@@ -27,11 +31,16 @@ public class Music implements JMC{
         Musicnote[] notes = {new Musicnote(input[0]), new Musicnote(input[1])}; //  array of notes
         int len = notes.length;
         int LINES = findLines(len, NOTES, MEASURELINE); // find number of lines
+
+        // create drawing panel that is a dynamic size and get graphics
         DrawingPanel g = new DrawingPanel(500, LINES * 150);
         Graphics s = g.getGraphics();
 
-        int size = 40*NOTES*MEASURELINE;
-        int space = 16;
+        // demensions
+        int notesInLine = NOTES*MEASURELINE;
+        int size = 40*notesInLine; // length of line
+        int space = 16; // space betweenb lines
+        int spaceing = size/notesInLine; //alloted space for each note
 
         //mapping note letters to a number sequence
         Map<String, String> map = new HashMap<String, String>();
@@ -41,13 +50,10 @@ public class Music implements JMC{
         map.put("d", "2");
         map.put("e", "1");
 
-        int count = 0;
-        int spaceing = size/(NOTES*MEASURELINE);
-        int notesInLine = NOTES*MEASURELINE;
+        int count = 0; // used to count up to length of note array
 
         int xPosition = 0;
         for (int j = 0; j < LINES; j++){
-
             for (int i = 0; i<5; i++){
                 s.drawLine(15, 30 + space*i + j*100, 15+size, 30 + space*i + j*100);
             }
@@ -67,9 +73,21 @@ public class Music implements JMC{
 
     }
 
-    public static int findLines(int len, int notes, int measure){
+    public static int quarterNote(int x, int y){
+        //fill oval
+        //stem
+    }
 
-        // finds the number of
+    public static int wholeNote(int x, int y){
+        //oval
+    }
+
+    public static int halfNote(int x, int y){
+        //circle
+    }
+
+    public static int findLines(int len, int notes, int measure){
+        // finds the number of lines needed to fill
         double l = len;
         double n = notes;
         double m = measure;
