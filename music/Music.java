@@ -14,8 +14,8 @@ public class Music implements JMC{
         for(int i = 0; i<10;i++){
             phr.addNote(new Note(JMC.A4, i/2));
         }
-        String[] input = {"a","a"};
-        show(input);
+        //String[] input = {"a","a"};
+        //show(input);
         show(phr);
         Play.midi(phr);
         p.addPhrase(phr);
@@ -23,13 +23,14 @@ public class Music implements JMC{
         View.show(s);
     }
 
-    public static void show(String[] input){
+    public static void show(Phrase phr){
+        Note[] notesArray = phr.getNoteArray();
         //dimensioning the staff
         int MEASURELINE = 3;
         int NOTES = 4;//number of notes per measure
 
-        Musicnote[] notes = {new Musicnote(input[0]), new Musicnote(input[1])}; //  array of notes
-        int len = notes.length;
+        //Musicnote[] notes = {new Musicnote(input[0]), new Musicnote(input[1])}; //  array of notes
+        int len = notesArray.length;
         int LINES = findLines(len, NOTES, MEASURELINE); // find number of lines
 
         // create drawing panel that is a dynamic size and get graphics
@@ -61,11 +62,11 @@ public class Music implements JMC{
                 notesInLine = len-count;
             }
             for(int i= 0; i<notesInLine; i++){
-                xPosition+=notes[count].getLength();
+                xPosition+=1;
                 if (i%4 == 0){
                     s.drawLine(15+i*spaceing, 20 + j*100 + 10, 15+i*spaceing, 20 + j*100 + space*5 - 7);
                 }
-                int h = Integer.parseInt(map.get(notes[count].getName()));
+                int h = notesArray[count].getPitch() - 64;
                 s.fillOval(20 + i*spaceing, 27 + h*8 + j*100, 9, 9);
                 count++;
             }
@@ -73,16 +74,16 @@ public class Music implements JMC{
 
     }
 
-    public static int quarterNote(int x, int y){
+    public static void quarterNote(int x, int y){
         //fill oval
         //stem
     }
 
-    public static int wholeNote(int x, int y){
+    public static void wholeNote(int x, int y){
         //oval
     }
 
-    public static int halfNote(int x, int y){
+    public static void halfNote(int x, int y){
         //circle
     }
 
