@@ -4,7 +4,7 @@ import java.util.*;
 class Pp7{
     public static void main(String args[]){
         int[] num = new int[10];
-        int layer2[] = {1};
+        int layer2[] = {1}; // sets a layer with the the first thing
 
         for (int i = 1; i<num.length; i++){
             String out = "";

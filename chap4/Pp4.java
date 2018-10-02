@@ -3,7 +3,7 @@ import java.util.*;
 
 class Pp4{
     public static void main(String args[]){
-
+        //gets information
         Scanner sc = new Scanner(System.in);
         String todayMonth = sc.nextLine();
         int todayDay = sc.nextInt();
@@ -14,13 +14,16 @@ class Pp4{
         String secMonth = c.nextLine();
         int secDay = c.nextInt();
 
+        // find absolute day
         int today = findAbsolute(todayMonth,todayDay);
         int first = findAbsolute(firstMonth,firstDay);
         int sec = findAbsolute(secMonth,secDay);
 
+        //finds distance
         int disFirst = distance(today,first);
         int disSec = distance(today,sec);
 
+        // outputs which day is closer
         if (disFirst < disSec){
             System.out.println("First birthday is closer");
         } else{
@@ -38,6 +41,7 @@ class Pp4{
     }
 
     public static int findAbsolute(String month, int day){
+        // mapping month names to integers
         Map<String, String> monthOrder = new HashMap<String, String>();
         monthOrder.put("january", "1");
         monthOrder.put("febuary", "2");
@@ -54,6 +58,7 @@ class Pp4{
 
         int[] dayOrder = {31,28,31,30,31,30,31,31,30,31,30,31};
 
+        //finding distance by summing munths up to the point
         month = month.toLowerCase();
         int numMonth = Integer.parseInt(monthOrder.get(month));
         int sum = 0;
