@@ -4,6 +4,9 @@ import jm.util.*;
 import java.awt.*;
 import java.util.*;
 
+//javac -cp jmusic.jar:. Music.java
+//java -cp jmusic.jar:. Music
+
 // use the fact that the phrase and note class has the option of getting note frequency
 
 public class Music implements JMC{
@@ -67,24 +70,25 @@ public class Music implements JMC{
                     s.drawLine(15+i*spaceing, 20 + j*100 + 10, 15+i*spaceing, 20 + j*100 + space*5 - 7);
                 }
                 int h = notesArray[count].getPitch() - 64;
-                s.fillOval(20 + i*spaceing, 27 + h*8 + j*100, 9, 9);
+                quarterNote(s, 20 + i*spaceing, 27 + h*8 + j*100);
                 count++;
             }
         }
 
     }
 
-    public static void quarterNote(int x, int y){
-        //fill oval
+    public static void quarterNote(Graphics s, int x, int y){
+        s.fillOval(x,y,9,9);
         //stem
     }
 
-    public static void wholeNote(int x, int y){
-        //oval
+    public static void wholeNote(Graphics s, int x, int y){
+        s.drawOval(x,y,9,9);
     }
 
-    public static void halfNote(int x, int y){
-        //circle
+    public static void halfNote(Graphics s, int x, int y){
+        s.drawOval(x,y,9,9);
+        //stem
     }
 
     public static int findLines(int len, int notes, int measure){
