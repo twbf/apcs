@@ -16,7 +16,7 @@ public class Music implements JMC{
         Part p = new Part("Piano", PIANO, 0);
         Phrase phr = new Phrase();
         for(int i = 0; i<10;i++){
-            phr.addNote(new Note(JMC.A4, 1));
+            phr.addNote(new Note(JMC.A4, JMC.QN));
         }
         //String[] input = {"a","a"};
         //show(input);
@@ -63,8 +63,13 @@ public class Music implements JMC{
                 }
                 int pitch = notesArray[count].getPitch() - 64;
                 double duration = notesArray[count].getDuration();
-                if (duration == 0.9){
+
+                if (duration == JMC.QN-0.1){ // quarter Note
+                    quarterNote(s, 20 + i*spaceing, 27 + pitch*8 + j*100);
+                } else if (duration == JMC.HN){ // half note
                     halfNote(s, 20 + i*spaceing, 27 + pitch*8 + j*100);
+                } else if (){ // whole note
+                    wholeNote(s, 20 + i*spaceing, 27 + pitch*8 + j*100);
                 }
                 count++;
             }

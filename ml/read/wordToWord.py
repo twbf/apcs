@@ -13,3 +13,6 @@ vocabulary = vocabulary.read().split()
 vocabulary = map(str.lower, vocabulary)
 
 print('Data size', len(vocabulary))
+
+def network():
+    
