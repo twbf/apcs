@@ -4,6 +4,7 @@ import jm.util.*;
 import java.awt.*;
 import java.util.*;
 
+//to run::
 //javac -cp jmusic.jar:. Music.java
 //java -cp jmusic.jar:. Music
 
@@ -15,7 +16,7 @@ public class Music implements JMC{
         Part p = new Part("Piano", PIANO, 0);
         Phrase phr = new Phrase();
         for(int i = 0; i<10;i++){
-            phr.addNote(new Note(JMC.A4, i/2));
+            phr.addNote(new Note(JMC.A4, 1));
         }
         //String[] input = {"a","a"};
         //show(input);
@@ -45,15 +46,6 @@ public class Music implements JMC{
         int size = 40*notesInLine; // length of line
         int space = 16; // space betweenb lines
         int spaceing = size/notesInLine; //alloted space for each note
-
-        //mapping note letters to a number sequence
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("a", "5");
-        map.put("b", "4");
-        map.put("c", "3");
-        map.put("d", "2");
-        map.put("e", "1");
-
         int count = 0; // used to count up to length of note array
 
         int xPosition = 0;
@@ -69,8 +61,11 @@ public class Music implements JMC{
                 if (i%4 == 0){
                     s.drawLine(15+i*spaceing, 20 + j*100 + 10, 15+i*spaceing, 20 + j*100 + space*5 - 7);
                 }
-                int h = notesArray[count].getPitch() - 64;
-                quarterNote(s, 20 + i*spaceing, 27 + h*8 + j*100);
+                int pitch = notesArray[count].getPitch() - 64;
+                double duration = notesArray[count].getDuration();
+                if (duration == 0.9){
+                    halfNote(s, 20 + i*spaceing, 27 + pitch*8 + j*100);
+                }
                 count++;
             }
         }
@@ -78,8 +73,8 @@ public class Music implements JMC{
     }
 
     public static void quarterNote(Graphics s, int x, int y){
-        s.fillOval(x,y,9,9);
-        //stem
+        s.fillOval(x,y,9,9); // ball
+        s.drawLine(x,y+5,x,y-20);  // draw stem
     }
 
     public static void wholeNote(Graphics s, int x, int y){
@@ -88,7 +83,7 @@ public class Music implements JMC{
 
     public static void halfNote(Graphics s, int x, int y){
         s.drawOval(x,y,9,9);
-        //stem
+        s.drawLine(x,y+5,x,y-20); // stem
     }
 
     public static int findLines(int len, int notes, int measure){
