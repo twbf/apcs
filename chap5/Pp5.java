@@ -1,9 +1,34 @@
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import java.lang.Math;
+import java.awt.Frame;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 class Pp5{
     public static void main(String args[]){
+        //gui
+        JFrame guiFrame = new JFrame();
+        guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        guiFrame.setTitle("Example GUI");
+        guiFrame.setSize(300,250);
+
+        JPanel pane = new JPanel();
+
+        JLabel label = new JLabel("My label");
+        label.setText(" ");
+        pane.add(label);
+        guiFrame.add(pane);
+
+        guiFrame.setVisible(true);
+
         //initialy setting the scores
         int human = 0;
         int computer = 0;
@@ -18,9 +43,9 @@ class Pp5{
                 System.out.println("Computer Wins");
                 computer++;
             }
-
             //score
             System.out.println("Computer: " + computer + "    Human: " + human);
+            label.setText("Computer: " + computer + "    Human: " + human);
             System.out.println(" ");
         }
         //final score
