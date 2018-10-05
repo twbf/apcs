@@ -17,15 +17,25 @@ class Pp5{
         //gui
         JFrame guiFrame = new JFrame();
         guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        guiFrame.setTitle("Example GUI");
+        guiFrame.setTitle("Rock-1 Paper-2 Sicors-3");
         guiFrame.setSize(300,250);
 
         JPanel pane = new JPanel();
 
         JLabel label = new JLabel("My label");
+
+        JButton button = new JButton("Click here");
         label.setText(" ");
+
+        KeyListener listener = new MyKeyListener();
+		addKeyListener(listener);
+		setFocusable(true);
+
         pane.add(label);
+        pane.add(button);
+
         guiFrame.add(pane);
+
 
         guiFrame.setVisible(true);
 
