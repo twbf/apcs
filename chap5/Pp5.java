@@ -30,7 +30,7 @@ class Pp5{
         scoreLabel.setText(" ");
         playLabel.setText(" ");
 
-        JButton rock=new JButton("rock");
+        JButton rock=new JButton("Rock");
         rock.addActionListener(new ActionListener() {
 
 			      @Override
@@ -40,7 +40,7 @@ class Pp5{
 			      }
 	    });
 
-        JButton paper=new JButton("paper");
+        JButton paper=new JButton("Paper");
         paper.addActionListener(new ActionListener() {
 
   			    @Override
@@ -50,7 +50,7 @@ class Pp5{
   			    }
   	    });
 
-        JButton scii=new JButton("scii");
+        JButton scii=new JButton("Scissors");
         scii.addActionListener(new ActionListener() {
 
   			    @Override
@@ -60,11 +60,11 @@ class Pp5{
   			    }
   	    });
 
-        pane.add(scoreLabel);
-        pane.add(playLabel);
         pane.add(rock);
         pane.add(paper);
         pane.add(scii);
+        pane.add(scoreLabel);
+        pane.add(playLabel);
         guiFrame.add(pane);
 
         guiFrame.setVisible(true);
