@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 class Pp5{
+
+    public static int diff = 0;
+
     public static void main(String args[]){
         //gui
         JFrame guiFrame = new JFrame();
@@ -26,86 +29,73 @@ class Pp5{
         JLabel playLabel = new JLabel("play");
         scoreLabel.setText(" ");
         playLabel.setText(" ");
-        pane.add(scoreLabel);
-        pane.add(playLabel);
-        guiFrame.add(pane);
-
-
-
-
-        guiFrame.setVisible(true);
 
         JButton rock=new JButton("rock");
         rock.addActionListener(new ActionListener() {
 
 			      @Override
-			          public void actionPerformed(ActionEvent arg0) {
-					       int play = play(); // with rock
-                 points(play);
+			      public void actionPerformed(ActionEvent arg0) {
+					  int play = play(1); // with rock
+                      points(playLabel, play);
 			      }
-	      });
+	    });
 
-          JButton rock=new JButton("paper");
-          rock.addActionListener(new ActionListener() {
+        JButton paper=new JButton("paper");
+        paper.addActionListener(new ActionListener() {
 
-  			      @Override
-  			          public void actionPerformed(ActionEvent arg0) {
-  					       int play = play(); // with rock
-                   points(play);
-  			      }
-  	      });
+  			    @Override
+  			        public void actionPerformed(ActionEvent arg0) {
+  					     int play = play(2); // with paper
+                 points(playLabel, play);
+  			    }
+  	    });
 
-          JButton rock=new JButton("scii");
-          rock.addActionListener(new ActionListener() {
+        JButton scii=new JButton("scii");
+        scii.addActionListener(new ActionListener() {
 
-  			      @Override
-  			          public void actionPerformed(ActionEvent arg0) {
-  					       int play = play(); // with rock
-                   points(play);
-  			      }
-  	      });
+  			    @Override
+  			        public void actionPerformed(ActionEvent arg0) {
+  					     int play = play(3); // with rock
+                 points(playLabel, play);
+  			    }
+  	    });
+
+        pane.add(scoreLabel);
+        pane.add(playLabel);
+        pane.add(rock);
+        pane.add(paper);
+        pane.add(scii);
+        guiFrame.add(pane);
+
+        guiFrame.setVisible(true);
 
         //initialy setting the scores
         int human = 0;
         int computer = 0;
         while (Math.abs(computer - human)<3){ // there need to be a difference of three for the game to end
-            int play = play(); // play
-            if (play == 0){
-                System.out.println("Tie");
-            } else if (play == 1) {
-                System.out.println("You win");
-                human++;
-            } else {
-                System.out.println("Computer Wins");
-                computer++;
-            }
-            //score
-            System.out.println("Computer: " + computer + "    Human: " + human);
-            label.setText("Computer: " + computer + "    Human: " + human);
-            System.out.println(" ");
         }
-        //final score
-        System.out.println("Computer: " + computer + "    Human: " + human);
     }
 
-    public static void points(int play){
+    public static void points(JLabel playLabel, int play){
         if (play == 0){
-            //tie
-            //stationary peice
+            playLabel.setText("Tie");
         } else if (play == 1) {
             playLabel.setText("You win");
+            diff++;
             //move peice
         } else {
             playLabel.setText("Computer Wins");
+            diff--;
             //move peice
         }
-        //scoreLabel.setText("Computer: " + computer + "    Human: " + human);
+        if (Math.abs(diff)<3){
+            //end game
+        }
     }
 
     public static void movePiece(int play){
         int increment = 10;
         //move peice each way
-        // if hits wall have a big splash screen.
     }
 
     public static int play(int human){
