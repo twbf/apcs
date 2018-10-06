@@ -31,6 +31,8 @@ class Pp5{
         guiFrame.add(pane);
 
 
+
+
         guiFrame.setVisible(true);
 
         JButton rock=new JButton("rock");
@@ -42,6 +44,26 @@ class Pp5{
                  points(play);
 			      }
 	      });
+
+          JButton rock=new JButton("paper");
+          rock.addActionListener(new ActionListener() {
+
+  			      @Override
+  			          public void actionPerformed(ActionEvent arg0) {
+  					       int play = play(); // with rock
+                   points(play);
+  			      }
+  	      });
+
+          JButton rock=new JButton("scii");
+          rock.addActionListener(new ActionListener() {
+
+  			      @Override
+  			          public void actionPerformed(ActionEvent arg0) {
+  					       int play = play(); // with rock
+                   points(play);
+  			      }
+  	      });
 
         //initialy setting the scores
         int human = 0;
