@@ -1,8 +1,10 @@
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import java.lang.Math;
+import java.lang.*;
+import java.awt.Graphics2D;
 import java.awt.Frame;
-import javax.swing.JFrame;
+import javax.swing.*;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -23,20 +25,23 @@ class Pp5{
         guiFrame.setTitle("Rock Paper Scissors");
         guiFrame.setSize(300,250);
 
-        JPanel pane = new JPanel();
+        JPanel pane = new JPanel(); // pane
 
+        //labels
         JLabel scoreLabel = new JLabel("score");
         JLabel playLabel = new JLabel("play");
         scoreLabel.setText(" ");
         playLabel.setText(" ");
 
+
+        // buttons
         JButton rock=new JButton("Rock");
         rock.addActionListener(new ActionListener() {
 
 			      @Override
 			      public void actionPerformed(ActionEvent arg0) {
 					  int play = play(1); // with rock
-                      points(playLabel, play);
+                      points(scoreLabel, playLabel, play);
 			      }
 	    });
 
@@ -46,7 +51,7 @@ class Pp5{
   			    @Override
   			        public void actionPerformed(ActionEvent arg0) {
   					     int play = play(2); // with paper
-                 points(playLabel, play);
+                         points(scoreLabel, playLabel, play);// count points
   			    }
   	    });
 
@@ -56,7 +61,7 @@ class Pp5{
   			    @Override
   			        public void actionPerformed(ActionEvent arg0) {
   					     int play = play(3); // with rock
-                 points(playLabel, play);
+                 points(scoreLabel, playLabel, play);
   			    }
   	    });
 
@@ -68,28 +73,27 @@ class Pp5{
         guiFrame.add(pane);
 
         guiFrame.setVisible(true);
-
-        //initialy setting the scores
-        int human = 0;
-        int computer = 0;
-        while (Math.abs(computer - human)<3){ // there need to be a difference of three for the game to end
-        }
     }
 
-    public static void points(JLabel playLabel, int play){
+    public static void points(JLabel playLabel, JLabel score, int play){
         if (play == 0){
             playLabel.setText("Tie");
         } else if (play == 1) {
             playLabel.setText("You win");
             diff++;
-            //move peice
         } else {
             playLabel.setText("Computer Wins");
             diff--;
-            //move peice
         }
-        if (Math.abs(diff)<3){
-            //end game
+        score.setText(Integer.toString(diff));
+        if (Math.abs(diff)>2){
+            if(diff == -3){
+                playLabel.setText("YOUR A BIG FAT LOSER");
+            }
+            if(diff == 3){
+                playLabel.setText("WINNER WINNER CHICKEN DINNER");
+            }
+            score.setText("GAME OVER");
         }
     }
 
