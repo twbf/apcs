@@ -16,6 +16,9 @@ public class Music implements JMC{
         Part p = new Part("Piano", PIANO, 0);
         Phrase phr = new Phrase();
         for(int i = 0; i<10;i++){
+            phr.addNote(new Note(JMC.A4, JMC.HN));
+        }
+        for(int i = 0; i<10;i++){
             phr.addNote(new Note(JMC.A4, JMC.QN));
         }
         //String[] input = {"a","a"};
@@ -36,6 +39,10 @@ public class Music implements JMC{
         //Musicnote[] notes = {new Musicnote(input[0]), new Musicnote(input[1])}; //  array of notes
         int len = notesArray.length;
         int LINES = findLines(len, NOTES, MEASURELINE); // find number of lines
+
+
+        System.out.println(LINES);
+
 
         // create drawing panel that is a dynamic size and get graphics
         DrawingPanel g = new DrawingPanel(500, LINES * 150);
@@ -66,9 +73,9 @@ public class Music implements JMC{
 
                 if (duration == JMC.QN-0.1){ // quarter Note
                     quarterNote(s, 20 + i*spaceing, 27 + pitch*8 + j*100);
-                } else if (duration == JMC.HN){ // half note
+                } else if (duration == JMC.HN-0.2){ // half note
                     halfNote(s, 20 + i*spaceing, 27 + pitch*8 + j*100);
-                } else if (){ // whole note
+                } else { // whole note
                     wholeNote(s, 20 + i*spaceing, 27 + pitch*8 + j*100);
                 }
                 count++;
@@ -79,7 +86,7 @@ public class Music implements JMC{
 
     public static void quarterNote(Graphics s, int x, int y){
         s.fillOval(x,y,9,9); // ball
-        s.drawLine(x,y+5,x,y-20);  // draw stem
+        s.drawLine(x+8,y+5,x+8,y-20);  // draw stem
     }
 
     public static void wholeNote(Graphics s, int x, int y){
@@ -88,7 +95,7 @@ public class Music implements JMC{
 
     public static void halfNote(Graphics s, int x, int y){
         s.drawOval(x,y,9,9);
-        s.drawLine(x,y+5,x,y-20); // stem
+        s.drawLine(x+8,y+5,x+8,y-20); // stem
     }
 
     public static int findLines(int len, int notes, int measure){

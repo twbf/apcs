@@ -21,7 +21,7 @@ class Pp5{
     public static void main(String args[]){
         //gui
         JFrame guiFrame = new JFrame();
-        guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // so it closes nicely
         guiFrame.setTitle("Rock Paper Scissors");
         guiFrame.setSize(300,250);
 
@@ -35,6 +35,8 @@ class Pp5{
 
 
         // buttons
+        // overide is so that when it is clicked stuff happens
+
         JButton rock=new JButton("Rock");
         rock.addActionListener(new ActionListener() {
 
