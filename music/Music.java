@@ -69,6 +69,9 @@ public class Music implements JMC{
                     s.drawLine(15+i*spaceing, 20 + j*100 + 10, 15+i*spaceing, 20 + j*100 + space*5 - 7);
                 }
                 int pitch = notesArray[count].getPitch() - 64;
+
+                // need to make pitch smarter
+                
                 double duration = notesArray[count].getDuration();
 
                 if (duration == JMC.QN-0.1){ // quarter Note
