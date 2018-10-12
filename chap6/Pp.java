@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.io.*;
+import java.util.*;
 
 class Pp{
 
@@ -7,16 +8,15 @@ class Pp{
 
     public static void main(String args[]){
         Scanner input = new Scanner("the the the a cat cat");
-        String[] listBook = {" ", " ", " ", " ", " ", " ", " ", " ", " ", " "};
-        int[] freq = new int[SIZE];
+        List<String> listBook = new ArrayList<String>(); // list of words
+        int[] freq = new int[SIZE]; // array of the frequencies
 
         int count = 0;
         while (input.hasNext()) { // need to make expandable
             String word = input.next();
-            int check = check(listBook, word);  // -1 if not there
-            
+            int check = listBook.indexOf(word);  // -1 if not there
             if (check == -1){
-                listBook[count] = word;
+                listBook.add(word);
                 freq[count]++;
                 count++;
             } else {
@@ -24,21 +24,11 @@ class Pp{
             }
         }
 
-
         //sort to find max 10
 
         //prints
-        for (int i = 0; i<SIZE; i++){
-            System.out.println(listBook[i] + " " + freq[i]);
+        for (int i = 0; i<listBook.size(); i++){
+            System.out.println(listBook.get(i) + " " + freq[i]);
         }
-    }
-
-    public static int check(String [] listBook, String word){
-        for (int i = 0; i<SIZE; i++){
-            if (listBook[i].equals(word)){
-                return i;
-            }
-        }
-        return -1;
     }
 }
