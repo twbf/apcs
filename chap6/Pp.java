@@ -22,8 +22,11 @@ class Pp{
             }
         }
 
+        List<String> maxWords = new ArrayList<String>(); // list of words
+        ArrayList<Integer> maxFreq = new ArrayList<>();
+
         //sort to find max 10
-        for(int i = 0; i<10; i++){  // 10 maxes
+        for(int i = 0; i<20; i++){  // 10 maxes
             int index = 0;
             int thing = 0;
             for (int j = 0; j<listBook.size(); j++){  // index of max
@@ -32,9 +35,15 @@ class Pp{
                     index = j;
                 }
             }
+            maxWords.add(listBook.get(index));
+            maxFreq.add(freq.get(index))
             System.out.println(listBook.get(index) + " " + freq.get(index));  // print the max
             listBook.remove(index);  // remove max
             freq.remove(index); // remove max
         }
+
+        //make it into a histogram
+        
+
     }
 }
