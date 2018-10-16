@@ -23,10 +23,18 @@ class Pp{
         }
 
         //sort to find max 10
-
-        //prints
-        for (int i = 0; i<listBook.size(); i++){
-            System.out.println(listBook.get(i) + " " + freq.get(i));
+        for(int i = 0; i<10; i++){  // 10 maxes
+            int index = 0;
+            int thing = 0;
+            for (int j = 0; j<listBook.size(); j++){  // index of max
+                if (thing<freq.get(j)){
+                    thing = freq.get(j);
+                    index = j;
+                }
+            }
+            System.out.println(listBook.get(index) + " " + freq.get(index));  // print the max
+            listBook.remove(index);  // remove max
+            freq.remove(index); // remove max
         }
     }
 }
