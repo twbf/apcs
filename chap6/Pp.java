@@ -36,14 +36,20 @@ class Pp{
                 }
             }
             maxWords.add(listBook.get(index));
-            maxFreq.add(freq.get(index))
-            System.out.println(listBook.get(index) + " " + freq.get(index));  // print the max
+            maxFreq.add(freq.get(index));
+            //System.out.println(listBook.get(index) + " " + freq.get(index));  // print the max
             listBook.remove(index);  // remove max
             freq.remove(index); // remove max
         }
 
         //make it into a histogram
-        
+        for (int i = 0; i<maxWords.size(); i++) {
+            System.out.printf("%-15s", maxWords.get(i));
+            for(int j = 0; j<maxFreq.get(i); j++){
+                System.out.print("*");
+            }
+            System.out.println(" ");
+        }
 
     }
 }
