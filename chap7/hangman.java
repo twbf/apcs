@@ -35,6 +35,7 @@ class Hangman{
         }
 
         guiFrame.add(pane);
+        new GraphicsOnJPanel ();
 
         guiFrame.setVisible(true);
         //buttons[0] = new JButton("0");
@@ -46,5 +47,8 @@ class Hangman{
         //char guess =
 
     }
+
+
+
 
 }
