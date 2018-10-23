@@ -1,21 +1,8 @@
-import java.util.Scanner;
 import java.io.*;
 import java.util.*;
-import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
-import java.lang.Math;
 import java.lang.*;
-import java.awt.Graphics2D;
-import java.awt.Frame;
 import javax.swing.*;
-import javax.swing.JPanel;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.*;
 
 class Hangman{
     public static void main(String args[]) throws FileNotFoundException{
@@ -35,10 +22,9 @@ class Hangman{
         }
 
         guiFrame.add(pane);
-        new GraphicsOnJPanel ();
+        new GraphicsOnJPanel(1);
 
         guiFrame.setVisible(true);
-        //buttons[0] = new JButton("0");
         //get file of words
 
         //play
