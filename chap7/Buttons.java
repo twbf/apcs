@@ -4,10 +4,11 @@ import java.lang.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
 import javax.swing.border.*;
 
 public class Buttons extends JFrame implements WindowListener,ActionListener{
+    public static JButton[] buttons = new JButton[26];
+
     public Buttons(){
         JFrame guiFrame = new JFrame();
         guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // so it closes nicely
@@ -17,7 +18,7 @@ public class Buttons extends JFrame implements WindowListener,ActionListener{
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 
 
-        JButton[] buttons = new JButton[26];
+
         for(int i = 0; i<26; i++){
             buttons[i] = new JButton(String.valueOf(alphabet[i]));
             buttons[i].addActionListener( this);
@@ -28,9 +29,14 @@ public class Buttons extends JFrame implements WindowListener,ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == buttons[0]){
-            System.out.println("d");
+        char letter = '';
+        // use a for loop
+        for(int i = 0; i<26; i++){
+            if (e.getSource() == buttons[i]){
+                char = i+67; // make this transfer numbers to letters
+            }
         }
+        System.out.println(char.toString);
     }
 
     public void windowOpened(WindowEvent e) {}
