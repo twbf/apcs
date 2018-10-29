@@ -29,14 +29,13 @@ public class Buttons extends JFrame implements WindowListener,ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
-        char letter = '';
-        // use a for loop
+        int letter = 0;
         for(int i = 0; i<26; i++){
             if (e.getSource() == buttons[i]){
-                char = i+67; // make this transfer numbers to letters
+                letter = i+97; // make this transfer numbers to letters
             }
         }
-        System.out.println(char.toString);
+        System.out.println(Character.toChars(letter));
     }
 
     public void windowOpened(WindowEvent e) {}
