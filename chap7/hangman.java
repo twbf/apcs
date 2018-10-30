@@ -16,7 +16,7 @@ public class Hangman{
         guiFrame.setSize(300,250);
         JPanel pane = new JPanel();
 
-        JPanel s = new GraphicsOnJPanel();
+        GraphicsOnJPanel s = new GraphicsOnJPanel();
 
         //sets word that is supposed to be guessed.
         String word = "and";
@@ -35,7 +35,7 @@ public class Hangman{
                             letter = i+97;
                         }
                     }
-                    guess(s, letter);
+                    guess(s, letter, word);
                 }
             });
 
@@ -43,21 +43,13 @@ public class Hangman{
         }
         guiFrame.add(pane);
         guiFrame.add(s);
+        //s.setErrors(1);
+        s.repaint();
         guiFrame.setVisible(true);
     }
 
-    public void paintComponent(Graphics g) {
-        //super.paintComponent(g);
-        g.setColor(Color.RED);
-        g.fillRect(100, 100, 100, 100);
-    }
-
-    public static void guess(JPanel g, int letter){ // letter still int
-        //s.repaint();
+    public static void guess(JPanel g, int letter, String word){ // letter still int
+        g.repaint();
         System.out.println(Character.toChars(letter));
     }
 }
-
-
-//Need to work on graphics with the buttons. It is not doing this correctly. If that doesn't work I
-//will switch it over to one file.

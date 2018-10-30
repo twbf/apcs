@@ -6,25 +6,29 @@ import java.awt.*;
 
 public class GraphicsOnJPanel extends JPanel{
 
-    public int errors;
+    public int errors = 0;
 
     public GraphicsOnJPanel(){
-        //setSize (500,500);
-        //setResizable (false);
-        JPanel panel = new JPanel (){
-            public void paint (Graphics g){
+        JPanel panel = new JPanel ();
+    }
 
-                // initial
-                g.setColor(Color.BLACK);
-                g.fillRect(200, 200, 100, 100);
-             }
-         };
-         setVisible(true);
+    public void setErrors(int e){
+        errors = e;
     }
 
     public void paintComponent(Graphics g) {
-        //super.paintComponent(g);
-        g.setColor(Color.RED);
-        g.fillRect(100, 100, 100, 100);
+        if (errors >= 0){
+            g.setColor(Color.RED);
+            g.fillRect(100, 100, 100, 100);
+        }
+        if (errors >=1)  {
+            //head
+            g.setColor(Color.GREEN);
+            g.fillRect(100, 100, 100, 100);
+        }
+        if (errors >=2)  {
+            //head
+        }
+
     }
 }
