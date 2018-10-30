@@ -8,22 +8,26 @@ public class GraphicsOnJPanel extends JFrame{
 
     public int errors;
 
-    public GraphicsOnJPanel(int e){
-        errors = e;
-        setSize (Toolkit.getDefaultToolkit ().getScreenSize ());
+    public GraphicsOnJPanel(){
+        setSize (500,500);
         setResizable (false);
         setContentPane (new JPanel (){
-
             public void paint (Graphics g){
-                g.setColor (Color.RED);
-                g.fillRect (100, 100, 100, 100);
-                if (errors == 0){
-                    g.setColor (Color.BLACK);
-                    g.fillRect (200, 200, 100, 100);
-                }
-             }
 
+                // initial
+                g.setColor(Color.BLACK);
+                g.fillRect(200, 200, 100, 100);
+             }
          });
-    setVisible (true);
-}
+         setVisible(true);
+    }
+
+    public void paint(Graphics g, int e){
+        errors = e;
+        g.setColor(Color.RED);
+        g.fillRect(100, 100, 100, 100);
+    }
+
+
+
 }
