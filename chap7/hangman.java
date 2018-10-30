@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 
-class Hangman{
+public class Hangman{
     public static void main(String args[]) throws FileNotFoundException{
 
         //sets frame
@@ -16,8 +16,7 @@ class Hangman{
         guiFrame.setSize(300,250);
         JPanel pane = new JPanel();
 
-        //graphics
-        GraphicsOnJPanel g = new GraphicsOnJPanel();
+        JPanel s = new GraphicsOnJPanel();
 
         //sets word that is supposed to be guessed.
         String word = "and";
@@ -27,6 +26,7 @@ class Hangman{
         JButton[] buttons = new JButton[26];
         for(int i = 0; i<26; i++){
             buttons[i] = new JButton(String.valueOf(alphabet[i]));
+
             buttons[i].addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e){
                     int letter = 0;
@@ -35,17 +35,29 @@ class Hangman{
                             letter = i+97;
                         }
                     }
-                    guess(g, letter);
+                    guess(s, letter);
                 }
             });
+
             pane.add(buttons[i]);
         }
         guiFrame.add(pane);
+        guiFrame.add(s);
         guiFrame.setVisible(true);
     }
 
-    public static void guess(GraphicsOnJPanel g, int letter){ // letter still int
-        g.paint(1);
+    public void paintComponent(Graphics g) {
+        //super.paintComponent(g);
+        g.setColor(Color.RED);
+        g.fillRect(100, 100, 100, 100);
+    }
+
+    public static void guess(JPanel g, int letter){ // letter still int
+        //s.repaint();
         System.out.println(Character.toChars(letter));
     }
 }
+
+
+//Need to work on graphics with the buttons. It is not doing this correctly. If that doesn't work I
+//will switch it over to one file.
