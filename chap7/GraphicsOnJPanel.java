@@ -16,18 +16,40 @@ public class GraphicsOnJPanel extends JPanel{
         errors = e;
     }
 
+    public int getErrors(){
+        return errors;
+    }
+
     public void paintComponent(Graphics g) {
         if (errors >= 0){
-            g.setColor(Color.RED);
+            g.setColor(Color.BLACK);
             g.fillRect(100, 100, 100, 100);
         }
-        if (errors >=1)  {
+        if (errors >= 1)  {
             //head
             g.setColor(Color.GREEN);
             g.fillRect(100, 100, 100, 100);
         }
-        if (errors >=2)  {
-            //head
+        if (errors >= 2){
+            //neck
+        }
+        if (errors >= 3){
+            //arms
+        }
+        if (errors >= 4){
+            //arm
+        }
+        if (errors >= 5){
+            //body
+        }
+        if (errors >= 6){
+            //leg
+        }
+        if (errors >= 7){
+            //leg
+        }
+        if (errors >= 8){
+            //loser
         }
 
     }
