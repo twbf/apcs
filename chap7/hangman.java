@@ -41,7 +41,7 @@ public class Hangman{
                             letter = i+97;
                         }
                     }
-                    guess(s, letter, word, labels);
+                    guess(s, (char) letter, word, labels);
                 }
             });
 
@@ -54,22 +54,22 @@ public class Hangman{
         guiFrame.setVisible(true);
     }
 
-    public static void guess(GraphicsOnJPanel g, int letter, String word, JLabel[] labels){ // letter still int
+    public static void guess(GraphicsOnJPanel g, char letter, String word, JLabel[] labels){ // letter still int
 
         int detect = 0;  // used to detect if there was a guess
 
-        System.out.println(Character.toChars(letter));
         for(int i = 0; i<word.length(); i++){
-            if(letter.equals(word.charAt(i))){ // checks if there is that letter
+            if(letter == word.charAt(i)){ // checks if there is that letter
                 detect = 1; // no error
-                labels[i] = new JLabel(" " + word.charAt(i) + " "); // fills in all the letters well
+                labels[i].setText(" " + word.charAt(i) + " "); // fills in all the letters well
             }
         }
 
         if (detect == 0){  // if there was no letter then it fills it in
-            g.setErrors(g.errors++);
+            g.errors = g.errors + 1;
+            g.setErrors(g.errors);
             g.repaint();
+            //System.out.println(g.errors);
         }
-
     }
 }
