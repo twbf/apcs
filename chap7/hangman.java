@@ -13,7 +13,7 @@ public class Hangman{
         JFrame guiFrame = new JFrame();
         guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // so it closes nicely
         guiFrame.setTitle("Hangman");
-        guiFrame.setSize(300,250);
+        guiFrame.setSize(1200,800);
         JPanel pane = new JPanel();
 
         GraphicsOnJPanel s = new GraphicsOnJPanel();
@@ -27,18 +27,20 @@ public class Hangman{
             labels[i] = new JLabel(" _ ");
             pane.add(labels[i]);
         }
+
         //makes button with action listener
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         JButton[] buttons = new JButton[26];
         for(int i = 0; i<26; i++){
             buttons[i] = new JButton(String.valueOf(alphabet[i]));
-
+            buttons[i].setPreferredSize(new Dimension(40, 20));
             buttons[i].addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e){
                     int letter = 0;
                     for(int i = 0; i<26; i++){
-                        if (e.getSource() == buttons[i]){
+                        if (e.getSource() == buttons[i]){ // checks if the button is the 
                             letter = i+97;
+                            buttons[i].setEnabled(false);
                         }
                     }
                     guess(s, (char) letter, word, labels);
