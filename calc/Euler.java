@@ -4,7 +4,7 @@ class Euler{
         double startx = 0;
         double endx = 1;
         double starty = 3;
-        double endy;//what we are getting
+
 
         double newx = startx;
         double newy = starty;
@@ -16,7 +16,9 @@ class Euler{
     }
 
     public static double dydx (double x, double y){
+
         return 6*x*x - 3*x*x*y;
+
     }
 
 }

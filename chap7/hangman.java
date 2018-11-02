@@ -13,8 +13,9 @@ public class Hangman{
         JFrame guiFrame = new JFrame();
         guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // so it closes nicely
         guiFrame.setTitle("Hangman");
-        guiFrame.setSize(1200,800);
-        JPanel pane = new JPanel();
+        guiFrame.setSize(1240,800);
+        JPanel pane1 = new JPanel();
+        JPanel pane2 = new JPanel();
 
         GraphicsOnJPanel s = new GraphicsOnJPanel();
 
@@ -25,7 +26,8 @@ public class Hangman{
         JLabel[] labels = new JLabel[word.length()];
         for(int i = 0; i<word.length(); i++){
             labels[i] = new JLabel(" _ ");
-            pane.add(labels[i]);
+            labels[i].setFont(new Font("Sans-Serif", Font.PLAIN, 60));
+            pane2.add(labels[i]);
         }
 
         //makes button with action listener
@@ -47,10 +49,11 @@ public class Hangman{
                 }
             });
 
-            pane.add(buttons[i]);
+            pane1.add(buttons[i]);
         }
 
-        guiFrame.add(pane, BorderLayout.NORTH);
+        guiFrame.add(pane1, BorderLayout.NORTH);
+        guiFrame.add(pane2, BorderLayout.WEST);
         guiFrame.add(s, BorderLayout.CENTER);
         s.repaint();
         guiFrame.setVisible(true);
