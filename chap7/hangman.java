@@ -38,7 +38,7 @@ public class Hangman{
                 public void actionPerformed(ActionEvent e){
                     int letter = 0;
                     for(int i = 0; i<26; i++){
-                        if (e.getSource() == buttons[i]){ // checks if the button is the 
+                        if (e.getSource() == buttons[i]){ // checks if the button is the one clicked
                             letter = i+97;
                             buttons[i].setEnabled(false);
                         }
