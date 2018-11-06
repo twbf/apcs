@@ -56,11 +56,7 @@ public class GraphicsOnJPanel extends JPanel{
         if (errors >= 7){
             //leg
             g.drawLine(600, 370, 580, 470);
-        }
-        if (errors >= 8){
-            //loser
             g.drawString("LOSER", 580, 470);
         }
-
     }
 }

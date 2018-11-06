@@ -14,8 +14,8 @@ public class Hangman{
         guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // so it closes nicely
         guiFrame.setTitle("Hangman");
         guiFrame.setSize(1240,800);
-        JPanel pane1 = new JPanel();
-        JPanel pane2 = new JPanel();
+        JPanel pane1 = new JPanel(); // buttons
+        JPanel pane2 = new JPanel(); // graphics
 
         GraphicsOnJPanel s = new GraphicsOnJPanel();
 
@@ -52,9 +52,10 @@ public class Hangman{
             pane1.add(buttons[i]);
         }
 
+        guiFrame.add(s, BorderLayout.CENTER);
         guiFrame.add(pane1, BorderLayout.NORTH);
         guiFrame.add(pane2, BorderLayout.WEST);
-        guiFrame.add(s, BorderLayout.CENTER);
+
         s.repaint();
         guiFrame.setVisible(true);
     }
@@ -71,7 +72,7 @@ public class Hangman{
         }
 
         if (detect == 0){  // if there was no letter then it fills it in
-            g.errors = g.errors + 1;
+            g.errors = g.errors + 1; // private make a getter method
             g.setErrors(g.errors);
             g.repaint();
             //System.out.println(g.errors);
