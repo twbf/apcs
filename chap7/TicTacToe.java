@@ -28,6 +28,17 @@ public class TicTacToe{
             panel[i] = new JPanel();
             buttons[i] = new JButton("Click");
             buttons[i].setPreferredSize(new Dimension(100, 100));
+
+            buttons[i].addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent e){
+                    for(int i = 0; i<9; i++){
+                        if (e.getSource() == buttons[i]){ // checks if the button is the one clicked
+                            panel[i] = drawX(400,400);
+                        }
+                    }
+                }
+            });
+
             panel[i].add(buttons[i]);
             frame.add(panel[i]);
         }
@@ -35,12 +46,12 @@ public class TicTacToe{
         frame.setVisible(true);
     }
 
-    public void x(int x, int y){
+    public void drawX(int x, int y){
         g.drawLine(x+10, y+10, x-10, y-10);
         g.drawLine(x-10, y+10, x-10, y+10);
     }
 
-    public void o(int x, int y){
+    public void drawO(int x, int y){
         g.drawOval(x, y, 40, 40);
     }
 
