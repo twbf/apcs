@@ -1,6 +1,6 @@
 class Euler{
     public static void main(String args[]){
-        double stepSize = 0.000000001;
+        double stepSize = 0.2;
         double startx = 0;
         double endx = 1;
         double starty = 3;
@@ -17,7 +17,7 @@ class Euler{
 
     public static double dydx (double x, double y){
 
-        return 6*x*x - 3*x*x*y;
+        return 6*x - 3*y;
 
     }
 
