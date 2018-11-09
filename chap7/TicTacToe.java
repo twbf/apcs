@@ -14,7 +14,6 @@ public class TicTacToe{
     public JPanel panel;
     private Graphics g;
 
-
     public TicTacToe(){
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // so it closes nicely
@@ -28,31 +27,33 @@ public class TicTacToe{
             panel[i] = new JPanel();
             buttons[i] = new JButton("Click");
             buttons[i].setPreferredSize(new Dimension(100, 100));
-
+            panel[i].add(buttons[i]);
+            frame.add(panel[i]);
             buttons[i].addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e){
                     for(int i = 0; i<9; i++){
                         if (e.getSource() == buttons[i]){ // checks if the button is the one clicked
-                            panel[i] = drawX(400,400);
+                            draw(i, panel);
                         }
                     }
                 }
             });
-
-            panel[i].add(buttons[i]);
-            frame.add(panel[i]);
         }
 
         frame.setVisible(true);
     }
 
-    public void drawX(int x, int y){
-        g.drawLine(x+10, y+10, x-10, y-10);
-        g.drawLine(x-10, y+10, x-10, y+10);
-    }
+    public void draw(int i, JPanel[] panel){
 
-    public void drawO(int x, int y){
-        g.drawOval(x, y, 40, 40);
+        //users turn
+        panel[i].removeAll();
+        panel[i].updateUI();
+        JLabel label = new JLabel("x");
+        label.setFont(new Font("Sans-Serif", Font.PLAIN, 120));
+        panel[i].add(label);
+
+        //computers turn
+        
     }
 
     public static void main(String args[]) throws FileNotFoundException{

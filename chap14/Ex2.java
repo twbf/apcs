@@ -24,7 +24,6 @@ public class Ex2{
         topPanel.add(b2);
         topPanel.add(b3);
 
-
         JPanel overlay = new JPanel(new GridLayout(2,2));
         JButton o1 = new JButton("3");
         JButton o2 = new JButton("4");
@@ -63,6 +62,5 @@ public class Ex2{
         frame.add(bottomPanel, BorderLayout.SOUTH);
 
         frame.setVisible(true);
-
     }
 }
