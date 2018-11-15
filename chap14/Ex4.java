@@ -9,7 +9,7 @@ import javax.swing.border.*;
 public class Ex4{
     public static void main(String args[]){
         JFrame frame = new JFrame();
-        frame.setTitle("Midterm On Thursday!");
+        frame.setTitle("I Dig Layout");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(420,250);
         frame.setLayout(new BorderLayout());
