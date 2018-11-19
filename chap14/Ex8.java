@@ -13,20 +13,27 @@ public class Ex8{
     JLabel label;
     int x;
     int y;
+    private Ex8.Eyes eyes;
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws FileNotFoundException{
         JFrame frame = new JFrame();
         frame.setTitle("The eyes have it.");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400,300);
-
-        Eyes eyes = new Eyes();
-
+        Ex8.Eyes eyes = new Ex8().new Eyes();
         frame.add(eyes);
         frame.setVisible(true);
     }
-    class Eyes extends JPanel{
+
+    public class Eyes extends JPanel{
+        public Eyes(){
+            JPanel pane = new JPanel();
+            this.addMouseListener(new Mouse());
+            this.addMouseMotionListener(new Ex8().new Mouse());
+            System.out.println("e");
+        }
         public void paintComponent(Graphics g) {
+            super.paintComponent(g);
             g.drawString(Integer.toString(x), 200, 200);
             System.out.println("y");
         }
@@ -37,7 +44,7 @@ public class Ex8{
             x = event.getX();
             y = event.getY();
             System.out.println("hh");
-            repaint();
+            eyes.repaint();
         }
     }
 }
