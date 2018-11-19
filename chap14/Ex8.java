@@ -9,10 +9,10 @@ import javax.swing.event.*;
 
 public class Ex8{
 
-    JPanel panel;
-    JLabel label;
-    int x;
-    int y;
+    private JPanel panel;
+    private JLabel label;
+    private int x;
+    private int y;
     private Ex8.Eyes eyes;
 
     public static void main(String args[]) throws FileNotFoundException{
@@ -29,22 +29,21 @@ public class Ex8{
         public Eyes(){
             JPanel pane = new JPanel();
             this.addMouseListener(new Mouse());
-            this.addMouseMotionListener(new Ex8().new Mouse());
-            System.out.println("e");
+            this.addMouseMotionListener(new Mouse());
         }
+
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             g.drawString(Integer.toString(x), 200, 200);
-            System.out.println("y");
         }
-    }
 
-    class Mouse extends MouseInputAdapter{
-        public void mouseMoved(MouseEvent event) {
-            x = event.getX();
-            y = event.getY();
-            System.out.println("hh");
-            eyes.repaint();
+        class Mouse extends MouseInputAdapter{
+            public void mouseMoved(MouseEvent event) {
+                x = event.getX();
+                y = event.getY();
+                repaint();
+            }
         }
+        
     }
 }
