@@ -28,13 +28,20 @@ public class Ex8{
     public class Eyes extends JPanel{
         public Eyes(){
             JPanel pane = new JPanel();
-            this.addMouseListener(new Mouse());
             this.addMouseMotionListener(new Mouse());
         }
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.drawString(Integer.toString(x), 200, 200);
+
+            //First Eye
+            int x1 = (x-150)/5;
+            int y1= (y-150)/5;
+
+            g.drawOval(100,100, 100, 100);
+            g.drawOval(250,100, 100, 100);
+            g.fillOval(x1+150,y1+150,10,10);
+            g.fillOval(x-50,y/2,10,10);
         }
 
         class Mouse extends MouseInputAdapter{
@@ -44,6 +51,6 @@ public class Ex8{
                 repaint();
             }
         }
-        
+
     }
 }
