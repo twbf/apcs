@@ -18,7 +18,6 @@ public class TicTacToe{
     public class BoardPanel extends JFrame{
 
         private JLabel label;
-        private TicTacToe.BoardPanel b;
         private int[][] board;
         private JPanel[][] panel;
         private JButton[][] buttons;
@@ -71,6 +70,10 @@ public class TicTacToe{
             //computers turn
             int ci = -1;
             int cj = -1;
+
+            //this sectiuon ios a sequance of proritized tasks that
+
+            //checks if there is an open spot
             for(int k = 0; k<3; k++){
                 for(int l = 0; l<3; l++){
                     if(board[k][l] == 0){
@@ -79,6 +82,58 @@ public class TicTacToe{
                     }
                 }
             }
+
+            //diagonals
+            for(int k = 0; k<2; k+=2){
+                for(int l = 0; l<2; k+=2){
+                    if(board[k][l] == 0){
+                        ci = k;
+                        cj = l;
+                    }
+                }
+            }
+
+            if (board[0][0] == 1 && board[2][2] == 1 && board[0][1] == 0){
+                ci = 0;
+                cj = 1;
+            }
+
+            //center
+            if(board[1][1] == 0){
+                ci = 1;
+                cj = 1;
+            }
+
+
+            //if the other player will win
+            for(int k = 0; k<3; k++){
+                for(int l = 0; l<3; l++){
+                    if(board[k][l] == 0){
+                        board[k][l] = 1; //asume they go there
+                        if (checkWin(1) == 1){
+                            ci = k;
+                            cj = l;
+                        }
+                        board[k][l] = 0; // back
+                    }
+                }
+            }
+
+            //check if we will win
+            for(int k = 0; k<3; k++){
+                for(int l = 0; l<3; l++){
+                    if(board[k][l] == 0){
+                        board[k][l] = -1; //assume computer go there
+                        if (checkWin(-1) == -1){
+                            ci = k;
+                            cj = l;
+                        }
+                        board[k][l] = 0; // back
+                    }
+                }
+            }
+
+
             movePiece(ci,cj,false);
             if(checkWin(-1)==-1){
                 JOptionPane.showMessageDialog(null, "Loser");
