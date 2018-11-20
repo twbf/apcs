@@ -35,13 +35,17 @@ public class Ex8{
             super.paintComponent(g);
 
             //First Eye
-            int x1 = (x-150)/5;
-            int y1= (y-150)/5;
+            int x1 = (x-150)/5 + 150;
+            int y1 = (y-150)/5 + 150;
+
+            //secound
+            int x2 = (x-300)/5 + 300;
+            int y2 = (y-150)/5 + 150;
 
             g.drawOval(100,100, 100, 100);
             g.drawOval(250,100, 100, 100);
-            g.fillOval(x1+150,y1+150,10,10);
-            g.fillOval(x-50,y/2,10,10);
+            g.fillOval(x1,y1,20,20);
+            g.fillOval(x2,y2,20,20);
         }
 
         class Mouse extends MouseInputAdapter{
