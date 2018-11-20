@@ -64,6 +64,9 @@ public class TicTacToe{
         public void draw(int i, int j){ //i,j are users cordinaties wheras ci,cj are computer coudinates
             //users turn
             movePiece(i,j,true);
+            if(checkWin(1)==1){
+                JOptionPane.showMessageDialog(null, "You Won");
+            }
 
             //computers turn
             int ci = -1;
@@ -77,12 +80,17 @@ public class TicTacToe{
                 }
             }
             movePiece(ci,cj,false);
+            if(checkWin(-1)==-1){
+                JOptionPane.showMessageDialog(null, "Loser");
+            }
+
         }
 
         public void movePiece(int i, int j, boolean user){
             if(user){
                 board[i][j] = 1;
                 label = new JLabel("x");
+
             } else {
                 board[i][j] = -1;
                 label = new JLabel("o");
@@ -92,9 +100,30 @@ public class TicTacToe{
             panel[i][j].updateUI();
             panel[i][j].add(label);
         }
-        
-        //public static int checkWin(int[] board){
 
-        //}
+        public int checkWin(int side){
+            //rows
+            for(int i = 0; i<3; i++){
+                if(board[i][0] == side && board[i][1] == side && board[i][2] == side){
+                    return side;
+                }
+            }
+
+            //colloms
+            for(int i = 0; i<3; i++){
+                if(board[0][i] == side && board[1][i] == side && board[2][i] == side){
+                    return side;
+                }
+            }
+
+            //diagonals
+            if(board[0][0] == side && board[1][1] == side && board[2][2] == side){
+                return side;
+            }
+            if(board[0][2] == side && board[1][1] == side && board[2][0] == side){
+                return side;
+            }
+            return 0;
+        }
     }
 }
