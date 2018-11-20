@@ -9,20 +9,20 @@ import javax.swing.event.*;
 
 // Make sure that all of the objects are global
 
-public class TicTacToe{
+public class TicTacToe2{
+
+    private JLabel label;
+    private int[][] board;
+    private JPanel[][] panel;
+    private JButton[][] buttons;
 
     public static void main(String args[]) throws FileNotFoundException{
-        TicTacToe.BoardPanel b = new TicTacToe().new BoardPanel();
+        TicTacToe2 b = new TicTacToe2();
     }
 
-    public class BoardPanel extends JFrame{
 
-        private JLabel label;
-        private int[][] board;
-        private JPanel[][] panel;
-        private JButton[][] buttons;
 
-        public BoardPanel(){
+        public TicTacToe2(){
             JFrame frame = new JFrame();
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // so it closes nicely
             frame.setTitle("Tic-Tac-Toe");
@@ -52,8 +52,8 @@ public class TicTacToe{
             public void actionPerformed(ActionEvent e){
                 for(int i = 0; i<3; i++){
                     for(int j = 0; j<3; j++){
-                        if (e.getSource() == BoardPanel.this.buttons[i][j]){ // checks if the button is the one clicked
-                            BoardPanel.this.draw(i,j);
+                        if (e.getSource() == TicTacToe2.this.buttons[i][j]){ // checks if the button is the one clicked
+                            TicTacToe2.this.draw(i,j);
                         }
                     }
                 }
@@ -185,5 +185,5 @@ public class TicTacToe{
             }
             return 0;
         }
-    }
+
 }
