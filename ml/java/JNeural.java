@@ -3,14 +3,24 @@ import java.util.*;
 
 public class JNeural{
 
+    //Notes:
+    //Beggening nodes don't do anything; they don't have biases or weights
+    //and they don't go through sigmoid
+
     private int[] numLayers;
 
     private double[][] biases;
     private double[][][] weights;
     private double[][] activations;
 
+    private double[][] trainingIn;
+    private double[][] trainingOut;
+
+    private double[][] testIn;
+    private double[][] testOut;
+
     public static void main(String args[]){
-        int[] numLayers = {2,10,1};
+        int[] numLayers = {2,2,1};
         double[] start = {1,1};
         JNeural n = new JNeural(numLayers, start);
     }
@@ -29,10 +39,12 @@ public class JNeural{
         }
 
         run(start);
+        backProp();
+        run(start);
     }
 
     private void setNodes(int numNodes, int layer){  // sets the biases and weights
-        double random = 1; // need to change
+        double random = 0; // need to change
         for(int i = 0; i<numNodes; i++){
             biases[layer][i] = random;
             weights[layer][i] = new double[numLayers[layer-1]]; // need to change the three
@@ -43,6 +55,10 @@ public class JNeural{
     }
 
     private void run(double[] start){
+        if(start.length!=numLayers[0]){
+            System.out.println("Length of Input Array not equal to network Input");
+            return;
+        }
         activations[0] = start;
         for(int i = 1; i<numLayers.length; i++){ // each layer
             for(int j =0; j<numLayers[i]; j++){ //each node
@@ -53,8 +69,17 @@ public class JNeural{
                 activations[i][j] = sigmoid(sum - biases[i][j]); //sigmoid of the sum - the bias
             }
         }
-        System.out.println(activations[2][0]);
+        System.out.println(activations[numLayers.length-1][0]);
     }
+
+    private void backProp(){
+
+    }
+
+    private double squareCost(){
+
+    }
+
 
     private double sigmoid(double x){
         return 1/(1+Math.exp(-x));
