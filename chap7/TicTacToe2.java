@@ -7,21 +7,25 @@ import java.awt.event.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
-// Make sure that all of the objects are global
 
 public class TicTacToe2{
+
+    //notes
+    //game play
+    //make board cleaner
 
     private JLabel label;
     private int[][] board;
     private JPanel[][] panel;
     private JButton[][] buttons;
+    private JFrame frame;
 
     public static void main(String args[]) throws FileNotFoundException{
         TicTacToe2 b = new TicTacToe2();
     }
 
     public TicTacToe2(){
-        JFrame frame = new JFrame();
+        this.frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // so it closes nicely
         frame.setTitle("Tic-Tac-Toe");
         frame.setSize(1240,800);
@@ -31,7 +35,12 @@ public class TicTacToe2{
         this.buttons = new JButton[3][3];
         this.board = new int[3][3];
         this.label = new JLabel();
+        start();
+    }
 
+    public void start(){
+        frame.getContentPane().removeAll();
+        frame.getContentPane().repaint();
         for(int i = 0; i<3; i++){
             for(int j = 0; j<3; j++){
                 board[i][j] = 0;
@@ -62,7 +71,7 @@ public class TicTacToe2{
         //users turn
         movePiece(i,j,true);
         if(checkWin(1)==1){
-            JOptionPane.showMessageDialog(null, "You Won");
+            end(1);
         }
 
         //computers turn
@@ -136,21 +145,45 @@ public class TicTacToe2{
             }
         }
 
-
         movePiece(ci,cj,false);
+
         if(checkWin(-1)==-1){
-            JOptionPane.showMessageDialog(null, "Loser");
+            end(-1);
         }
 
     }
 
+    public void end(int side){ // 0 if stalemate
+        frame.getContentPane().removeAll();
+        frame.getContentPane().repaint();
+
+        String message = "Stalemate";
+        if (side == -1){
+            message = "Loser";
+        } else if (side == 1){
+            message = "You achived the impossible";
+        }
+        frame.add(new JLabel(message + " Want to try again?"));
+        JButton start = new JButton("START");
+        start.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                start();
+            }
+        });
+        frame.add(start);
+    }
+
     public void movePiece(int i, int j, boolean user){
-        if(user){
-            board[i][j] = 1;
-            label = new JLabel("x");
-        } else {
-            board[i][j] = -1;
-            label = new JLabel("o");
+        try{
+            if(user){
+                board[i][j] = 1;
+                label = new JLabel("x");
+            } else {
+                board[i][j] = -1;
+                label = new JLabel("o");
+            }
+        } catch (Exception e){ // no spots avalible
+            end(0);
         }
         label.setFont(new Font("Sans-Serif", Font.PLAIN, 120));
         panel[i][j].removeAll();

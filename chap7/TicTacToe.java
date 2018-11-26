@@ -71,7 +71,7 @@ public class TicTacToe{
             int ci = -1;
             int cj = -1;
 
-            //this sectiuon ios a sequance of proritized tasks that
+            //this sectiuon is a sequance of proritized tasks that
 
             //checks if there is an open spot
             for(int k = 0; k<3; k++){
@@ -109,7 +109,6 @@ public class TicTacToe{
                 cj = 1;
             }
 
-
             //if the other player will win
             for(int k = 0; k<3; k++){
                 for(int l = 0; l<3; l++){
@@ -138,12 +137,10 @@ public class TicTacToe{
                 }
             }
 
-
             movePiece(ci,cj,false);
             if(checkWin(-1)==-1){
                 JOptionPane.showMessageDialog(null, "Loser");
             }
-
         }
 
         public void movePiece(int i, int j, boolean user){
