@@ -14,11 +14,13 @@ public class TicTacToe2{
     //game play
     //make board cleaner
 
-    private JLabel label;
     private int[][] board;
     private JPanel[][] panel;
     private JButton[][] buttons;
     private JFrame frame;
+    private JPanel gridPanel;
+    private JLabel label;
+    private int sideGoingFirst = 1;
 
     public static void main(String args[]) throws FileNotFoundException{
         TicTacToe2 b = new TicTacToe2();
@@ -29,18 +31,23 @@ public class TicTacToe2{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // so it closes nicely
         frame.setTitle("Tic-Tac-Toe");
         frame.setSize(1240,800);
-        frame.setLayout(new GridLayout(3,3));
+        frame.setLayout(new BorderLayout());
 
         this.panel = new JPanel[3][3];
         this.buttons = new JButton[3][3];
         this.board = new int[3][3];
+        this.gridPanel = new JPanel();
         this.label = new JLabel();
+
+        gridPanel.setLayout(new GridLayout(3,3));
         start();
     }
 
     public void start(){
         frame.getContentPane().removeAll();
         frame.getContentPane().repaint();
+        gridPanel.removeAll();
+        gridPanel.updateUI();
         for(int i = 0; i<3; i++){
             for(int j = 0; j<3; j++){
                 board[i][j] = 0;
@@ -48,10 +55,21 @@ public class TicTacToe2{
                 buttons[i][j] = new JButton("Click");
                 buttons[i][j].setPreferredSize(new Dimension(100, 100));
                 panel[i][j].add(buttons[i][j]);
-                frame.add(panel[i][j]);
+                gridPanel.add(panel[i][j]);
                 buttons[i][j].addActionListener(new Button());
             }
         }
+        frame.add(gridPanel, BorderLayout.CENTER);
+
+        JButton switchSides = new JButton("Computer Go First");
+        switchSides.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                sideGoingFirst = 1;
+                movePiece(1,1,false); //moves to center
+            }
+        });
+        frame.add(switchSides, BorderLayout.NORTH);
+
         frame.setVisible(true);
     }
 
@@ -100,7 +118,7 @@ public class TicTacToe2{
             }
         }
 
-        //need to fix this loophole
+        // to fix weird loophole
         if (board[0][0] == 1 && board[2][2] == 1 && board[0][1] == 0){
             ci = 0;
             cj = 1;
@@ -131,7 +149,7 @@ public class TicTacToe2{
             }
         }
 
-            //check if we will win
+        //check if we will win
         for(int k = 0; k<3; k++){
             for(int l = 0; l<3; l++){
                 if(board[k][l] == 0){
@@ -150,7 +168,6 @@ public class TicTacToe2{
         if(checkWin(-1)==-1){
             end(-1);
         }
-
     }
 
     public void end(int side){ // 0 if stalemate
@@ -163,14 +180,14 @@ public class TicTacToe2{
         } else if (side == 1){
             message = "You achived the impossible";
         }
-        frame.add(new JLabel(message + " Want to try again?"));
+        frame.add(new JLabel(message + " Want to try again?"), BorderLayout.NORTH);
         JButton start = new JButton("START");
         start.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 start();
             }
         });
-        frame.add(start);
+        frame.add(start, BorderLayout.CENTER);
     }
 
     public void movePiece(int i, int j, boolean user){
