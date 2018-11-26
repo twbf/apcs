@@ -19,6 +19,10 @@ public class JNeural{
     private double[][] testIn;
     private double[][] testOut;
 
+    private double[][][] d_weights;
+    private double[][] d_biases;
+    private double[][] errors;
+
     public static void main(String args[]){
         int[] numLayers = {2,2,1};
         double[] start = {1,1};
@@ -73,11 +77,38 @@ public class JNeural{
     }
 
     private void backProp(){
+        this.d_weights = weights;
+        this.d_biases = biases;
+        this.errors = activations;
 
+        double sum = 0;
+        for(int i = 0; i<trainingIn.length; i++){
+            run(trainingIn[i]);
+            for(int j=0; j<numLayers[numLayers.length-1]; j++){
+                sum += Math.square(trainingOut[i][j] - activations[numLayers.length-1][j]);
+            }
+        }
+        sum = sum/(2*trainingIn.length);
     }
 
-    private double squareCost(){
+    private double squareCost(boolean training){  //obsolete now in backprop
+        if (training){ //if it is traing data
+            double sum = 0;
+            for(int i = 0; i<trainingIn.length; i++){
+                run(trainingIn[i]);
+                for(int j=0; j<numLayers[numLayers.length-1]; j++){
+                    sum += Math.square(trainingOut[i][j] - activations[numLayers.length-1][j]);
+                }
+            }
+            sum = sum/(2*trainingIn.length); // 2 because the derivative is then easy
+            return sum;
+        } else {
+            return -1;
+        }
+    }
 
+    private double squareCostDx(double x, double y){
+        return x-y;
     }
 
 
