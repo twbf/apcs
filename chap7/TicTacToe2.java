@@ -8,7 +8,7 @@ import javax.swing.border.*;
 import javax.swing.event.*;
 
 
-public class TicTacToe2{
+public class TicTacToe2 extends JPanel{
 
     //notes
     //game play
@@ -26,6 +26,12 @@ public class TicTacToe2{
         TicTacToe2 b = new TicTacToe2();
     }
 
+    public void paint(Graphics g){
+        Graphics2D g2 = (Graphics2D) g;
+        super.paint(g2);
+        g2.drawLine(10,100,300,300);
+    }
+
     public TicTacToe2(){
         this.frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // so it closes nicely
@@ -38,7 +44,7 @@ public class TicTacToe2{
         this.board = new int[3][3];
         this.gridPanel = new JPanel();
         this.label = new JLabel();
-
+        gridPanel.repaint();
         gridPanel.setLayout(new GridLayout(3,3));
         start();
     }
@@ -168,6 +174,17 @@ public class TicTacToe2{
         if(checkWin(-1)==-1){
             end(-1);
         }
+
+        //check if all spots are full
+        int check = 0;
+        for(int k = 0; k<3; k++){
+            for(int l = 0; l<3; l++){
+                if (board[k][l]==0) check = 1;
+            }
+        }
+        if(check == 0){ // all spots full
+            end(0);
+        }
     }
 
     public void end(int side){ // 0 if stalemate
@@ -180,14 +197,16 @@ public class TicTacToe2{
         } else if (side == 1){
             message = "You achived the impossible";
         }
-        frame.add(new JLabel(message + " Want to try again?"), BorderLayout.NORTH);
+        JPanel prompt = new JPanel();
+        prompt.add(new JLabel(message + " Want to try again?"));
         JButton start = new JButton("START");
         start.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 start();
             }
         });
-        frame.add(start, BorderLayout.CENTER);
+        prompt.add(start);
+        frame.add(prompt);
     }
 
     public void movePiece(int i, int j, boolean user){

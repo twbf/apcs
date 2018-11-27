@@ -15,7 +15,8 @@ public class Ex8{
     private int y;
     private Ex8.Eyes eyes;
 
-    public static void main(String args[]) throws FileNotFoundException{
+    public static void main(String args[])
+    {
         JFrame frame = new JFrame();
         frame.setTitle("The eyes have it.");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
