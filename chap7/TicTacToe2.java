@@ -8,7 +8,7 @@ import javax.swing.border.*;
 import javax.swing.event.*;
 
 
-public class TicTacToe2 extends JPanel{
+public class TicTacToe2{
 
     //notes
     //game play
@@ -26,11 +26,6 @@ public class TicTacToe2 extends JPanel{
         TicTacToe2 b = new TicTacToe2();
     }
 
-    public void paint(Graphics g){
-        Graphics2D g2 = (Graphics2D) g;
-        super.paint(g2);
-        g2.drawLine(10,100,300,300);
-    }
 
     public TicTacToe2(){
         this.frame = new JFrame();
@@ -42,11 +37,23 @@ public class TicTacToe2 extends JPanel{
         this.panel = new JPanel[3][3];
         this.buttons = new JButton[3][3];
         this.board = new int[3][3];
-        this.gridPanel = new JPanel();
+        this.gridPanel = new PaintPanel();
         this.label = new JLabel();
         gridPanel.repaint();
         gridPanel.setLayout(new GridLayout(3,3));
         start();
+    }
+
+    public class PaintPanel extends JPanel{
+        public PaintPanel(){
+            JPanel gridPanel = new JPanel();
+        }
+
+        public void paintComponent(Graphics g){
+            Graphics2D g2 = (Graphics2D) g;
+            super.paintComponent(g);
+            g2.drawLine(100,100,600,600);
+        }
     }
 
     public void start(){
@@ -54,6 +61,7 @@ public class TicTacToe2 extends JPanel{
         frame.getContentPane().repaint();
         gridPanel.removeAll();
         gridPanel.updateUI();
+        gridPanel.repaint();
         for(int i = 0; i<3; i++){
             for(int j = 0; j<3; j++){
                 board[i][j] = 0;
