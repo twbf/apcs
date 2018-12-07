@@ -8,15 +8,15 @@ import javax.swing.border.*;
 
 public class Ex1{
     public static void main(String args[]){
-        ArrayList<String> test = new ArrayList<String>;
+        ArrayList<String> test = new ArrayList<String>();
         test.add("fasde");
-        test.add("fasdoudeaioe");
+        test.add("fasdoudeaioeeeee");
         System.out.println(averageVowel(test));
     }
 
     public static double averageVowel (ArrayList<String> test){
-        int vowels = 0;
-        int letters = 0;
+        double vowels = 0;
+        double letters = 0;
 
         for(String x : test){
             for(int i = 0; i<x.length(); i++){
