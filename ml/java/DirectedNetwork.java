@@ -28,7 +28,7 @@ public class DirectedNetwork{
             for(int i = 0; i<numPeople; i++){
                 //set 1s
                 instance[0] = 1;
-
+                for(int )
                 //set 2s
                 for(int i = 0; i<numPeople; i++){
                     if (instance[i] == 0){
