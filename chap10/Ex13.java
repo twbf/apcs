@@ -21,6 +21,9 @@ public class Ex13{
             output.add(input.get(i+1));
             output.add(input.get(i));
         }
+        for(int i = 0; i<input.size()%3; i++){
+            output.add(input.get(input.size()-i - 1));
+        }
         return output;
     }
 }
