@@ -35,7 +35,6 @@ public class CalendarDate implements Comparable<CalendarDate> {
     public int getYear() {
         return this.year;
     }
-
     public String toString() {
         return this.month + "/" + this.day;
     }

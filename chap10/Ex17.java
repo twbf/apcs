@@ -21,7 +21,7 @@ public class pointEx implements Comparable<Point>{
         a1.add(new Point(3,4));
         a1.add(new Point(5,0));
         a1.add(new Point(1,0));
-        a1.sort();
+        Collections.sort(a1);
     }
     public int compareTo(Point other){
         int x1 = Math.square(other.getX()) + Math.square(other.getX());

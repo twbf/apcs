@@ -1,7 +1,11 @@
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+
 // Represents a time span of hours and minutes elapsed.
 // Alternate implementation using only total minutes.
 
-public class TimeSpan {
+public class TimeSpan implements Comparable<TimeSpan>{
     private int totalMinutes;
 
     // Constructs a time span with the given interval.
@@ -32,5 +36,19 @@ public class TimeSpan {
     public String toString() {
         return (totalMinutes / 60) + "h" +
                (totalMinutes % 60) + "m";
+    }
+
+    public int compareTo(TimeSpan arg0){
+        return totalMinutes - arg0.totalMinutes;
+    }
+
+    public static void main(String args[]){
+        ArrayList<TimeSpan> array  = new ArrayList<TimeSpan>();
+        array.add(new TimeSpan(3,6));
+        array.add(new TimeSpan(5,4));
+        array.add(new TimeSpan(3,4));
+        array.add(new TimeSpan(3,55));
+        Collections.sort(array);
+        System.out.println(array);
     }
 }
