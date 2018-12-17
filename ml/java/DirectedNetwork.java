@@ -9,11 +9,16 @@ import javax.swing.event.*;
 
 public class DirectedNetwork{
 
-    public static void main(String args[]) throws FileNotFoundException{
-        int numPeople = 6;
-        int numGroups = 2;
+    private int[][] grouping;
+    private int[] instance;
+    private int numPeople;
+    private int numGroups;
 
-        int[][] grouping = new int[6][];
+    public static void main(String args[]) throws FileNotFoundException{
+        numPeople = 6;
+        numGroups = 2;
+
+        grouping = new int[6][];
         grouping[0] = {1,2}; // 0 likes 1 and two
         grouping[1] = {1,2};
         grouping[2] = {1,2};
@@ -21,24 +26,25 @@ public class DirectedNetwork{
         grouping[4] = {2,5};
         grouping[5] = {2,3};
 
-        int[] instance = new int[numPeople];
-
-        //this is for one instance
-        for(int h = 0; h<10; h++){ // 20 is 6 choose 3
-            for(int i = 0; i<numPeople; i++){
-                //set 1s
-                instance[0] = 1;
-                for(int )
-                //set 2s
-                for(int i = 0; i<numPeople; i++){
-                    if (instance[i] == 0){
-                        instance[i] = 2;
-                    }
-                }
-
-
+        instance = new int[numPeople];
+        int counter = 0;
+        for(int i = 0; i<numPeople; i++){
+            counter = i;
+            for(int h = 0; h<6; h++){
+                counter++;
+                counter = counter%6;
+                instance[h] = counter;
             }
-            //get score
+            //score
+            instance = new int[numPeople]
+        }
+    }
+
+    public int score(){ // scors the instance variable with the grouping one
+        int outScore = 0;
+        int count;
+        for(int i = 0; i<numGroups; i++){
+
         }
     }
 }
