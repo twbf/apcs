@@ -12,14 +12,23 @@ import java.util.*;
 
 public class Music implements JMC{
     public static void main(String[] args) {
-        Score s = new Score("JMDemo - Show Fractal");
+        Score s = new Score("Show");
         Part p = new Part("Piano", PIANO, 0);
         Phrase phr = new Phrase();
-        for(int i = 0; i<10;i++){
-            phr.addNote(new Note(JMC.A4, JMC.HN));
-        }
-        for(int i = 0; i<10;i++){
+        for(int i = 0; i<5;i++){
             phr.addNote(new Note(JMC.A4, JMC.QN));
+        }
+        phr.addNote(new Note(JMC.C5, JMC.QN));
+        phr.addNote(new Note(JMC.A4, JMC.QN));
+        phr.addNote(new Note(JMC.D5, JMC.QN));
+        phr.addNote(new Note(JMC.B4, JMC.HN));
+
+
+        for(int i = 0; i<5;i++){
+            phr.addNote(new Note(JMC.D5, JMC.HN));
+        }
+        for(int i = 0; i<5;i++){
+            phr.addNote(new Note(JMC.A4, JMC.HN));
         }
         //String[] input = {"a","a"};
         //show(input);
@@ -68,18 +77,18 @@ public class Music implements JMC{
                 if (i%4 == 0){
                     s.drawLine(15+i*spaceing, 20 + j*100 + 10, 15+i*spaceing, 20 + j*100 + space*5 - 7);
                 }
-                int pitch = notesArray[count].getPitch() - 64;
+                int pitch = (notesArray[count].getPitch() - 64)%12;
 
                 // need to make pitch smarter
-                
+
                 double duration = notesArray[count].getDuration();
 
                 if (duration == JMC.QN-0.1){ // quarter Note
-                    quarterNote(s, 20 + i*spaceing, 27 + pitch*8 + j*100);
+                    quarterNote(s, 20 + i*spaceing, 92 - pitch*5 + j*100);
                 } else if (duration == JMC.HN-0.2){ // half note
-                    halfNote(s, 20 + i*spaceing, 27 + pitch*8 + j*100);
+                    halfNote(s, 20 + i*spaceing, 92 - pitch*5 + j*100);
                 } else { // whole note
-                    wholeNote(s, 20 + i*spaceing, 27 + pitch*8 + j*100);
+                    wholeNote(s, 20 + i*spaceing, 92 - pitch*5 + j*100);
                 }
                 count++;
             }
