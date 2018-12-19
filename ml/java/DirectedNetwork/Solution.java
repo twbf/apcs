@@ -7,22 +7,28 @@ import java.awt.event.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
+
+import java.util.concurrent.TimeUnit;
+
 public class Solution{
 
     private int[][] grouping;
     private ArrayList<Integer> instance;
     private ArrayList<Integer> all;
     private ArrayList<Integer> subset;
-    private int numPeople;
-    private int numGroups;
+    private ArrayList<Integer> indexes;
+    private int counter;
+
+    //I realize that one should only have to do 1/n!
 
     public static void main(String args[]) throws FileNotFoundException{
+        long start = System.currentTimeMillis();
         Solution s = new Solution();
+        long end = System.currentTimeMillis() - start;
+        System.out.println("Elapsed time in milliseconds: " + end);
     }
 
     public Solution(){
-        numPeople = 6;
-        numGroups = 2;
 
         //grouping = new int[6][];
         //grouping[0] = {1,2}; // 0 likes 1 and two
@@ -32,48 +38,64 @@ public class Solution{
         //grouping[4] = {2,5};
         //grouping[5] = {2,3};
 
-        all = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6));
+        all = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15));
         subset = all;
         instance = new ArrayList<Integer>();
-        choose(6);
+        indexes = new ArrayList<Integer>();
+
+        counter = 0;
+        choose(15);
+        System.out.println(counter);
     }
 
     public void choose(int size){
-        for(int i = 0; i < size; i++){
+            int i = 0;
             for(int j = i+1; j < size; j++){
                 for(int k = j+1; k < size; k++){
+                    indexes.add(i);
+                    indexes.add(j);
+                    indexes.add(k);
+                    Collections.sort(indexes, Collections.reverseOrder());
+                    Collections.sort(subset);
+
                     int x = subset.get(i);
                     int y = subset.get(j);
                     int z = subset.get(k);
                     instance.add(x);
                     instance.add(y);
                     instance.add(z);
-                    if(size-4>0){
-                        subset.remove(i);
-                        subset.remove(j);
-                        subset.remove(k);
+                    if(size-3>0){
+                        for(int index : indexes){
+                            subset.remove(index);
+                        }
+                        indexes.remove(0);
+                        indexes.remove(0);
+                        indexes.remove(0);
                         choose(size-3);
-                    } else {
-                        //print
-                        System.out.println(instance);
-
-                        //reset
                         subset.add(x);
                         subset.add(y);
                         subset.add(z);
-                        subset = all;
-                        instance = new ArrayList<Integer>();
+                    } else {
+                        //print
+                        //System.out.println(instance);
+                        counter++;
+                        //reset
+                        indexes.remove(0);
+                        indexes.remove(0);
+                        indexes.remove(0);
                     }
+                    instance.remove(instance.size()-1);
+                    instance.remove(instance.size()-1);
+                    instance.remove(instance.size()-1);
                 }
             }
-        }
     }
 
     public void score(){ // scors the instance variable with the grouping one
         int outScore = 0;
         int count;
-        for(int i = 0; i<numGroups; i++){
+        //for(int i = 0; i<numGroups; i++){
 
-        }
+        //}
     }
 }
