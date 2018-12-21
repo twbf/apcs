@@ -18,6 +18,7 @@ public class Solution{
     private ArrayList<Integer> subset;
     private ArrayList<Integer> indexes;
     private int counter;
+    private int instanceCounter = 0;
 
     //I realize that one should only have to do 1/n!
 
@@ -53,7 +54,6 @@ public class Solution{
     public void choose(int size){
         int x,y,z;
         int jtemp, ktemp, zerotemp;
-        int instanceCounter;
             for(int j = 1; j < size; j++){
                 for(int k = j+1; k < size; k++){
                     jtemp = j;
@@ -73,10 +73,12 @@ public class Solution{
                     x = subset.get(zerotemp);
                     y = subset.get(jtemp);
                     z = subset.get(ktemp);
-                    instance.add(x);
-                    instance.add(y);
-                    instance.add(z);
+                    instance.set(instanceCounter, x);
+                    instance.set(instanceCounter+1, y);
+                    instance.set(instanceCounter+2, z);
+
                     if(size-3>0){
+                        instanceCounter += 3;
                         subset.set(zerotemp, -1);
                         subset.set(jtemp, -1);
                         subset.set(ktemp, -1);
@@ -84,16 +86,13 @@ public class Solution{
                         subset.set(zerotemp,x);
                         subset.set(jtemp,y);
                         subset.set(ktemp,z);
+                        instanceCounter -= 3;
                     } else {
                         //print
                         //System.out.println(instance);
                         counter++;
                         subset = all;
                     }
-                    //reset instance
-                    instance.remove(instance.size()-1);
-                    instance.remove(instance.size()-1);
-                    instance.remove(instance.size()-1);
                 }
             }
     }
