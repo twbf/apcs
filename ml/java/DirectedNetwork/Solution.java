@@ -52,11 +52,6 @@ public class Solution{
         int x,y,z;
             for(int j = 1; j < size; j++){
                 for(int k = j+1; k < size; k++){
-                    indexes.add(0);
-                    indexes.add(j);
-                    indexes.add(k);
-                    Collections.sort(indexes, Collections.reverseOrder());
-
                     x = subset.get(0);
                     y = subset.get(j);
                     z = subset.get(k);
@@ -64,6 +59,10 @@ public class Solution{
                     instance.add(y);
                     instance.add(z);
                     if(size-3>0){
+                        indexes.add(0);
+                        indexes.add(j);
+                        indexes.add(k);
+                        Collections.sort(indexes, Collections.reverseOrder());
                         for(int index : indexes){
                             subset.remove(index);
                         }
@@ -76,9 +75,9 @@ public class Solution{
                         //print
                         //System.out.println(instance);
                         counter++;
-                        //reset
-                        indexes = new ArrayList<Integer>();
+                        subset = all;
                     }
+                    //reset instance
                     instance.remove(instance.size()-1);
                     instance.remove(instance.size()-1);
                     instance.remove(instance.size()-1);
