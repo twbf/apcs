@@ -44,23 +44,22 @@ public class Solution{
         indexes = new ArrayList<Integer>();
 
         counter = 0;
-        choose(15);
+        choose(all.size());
         System.out.println(counter);
     }
 
     public void choose(int size){
-            int i = 0;
-            for(int j = i+1; j < size; j++){
+        int x,y,z;
+            for(int j = 1; j < size; j++){
                 for(int k = j+1; k < size; k++){
-                    indexes.add(i);
+                    indexes.add(0);
                     indexes.add(j);
                     indexes.add(k);
                     Collections.sort(indexes, Collections.reverseOrder());
-                    Collections.sort(subset);
 
-                    int x = subset.get(i);
-                    int y = subset.get(j);
-                    int z = subset.get(k);
+                    x = subset.get(0);
+                    y = subset.get(j);
+                    z = subset.get(k);
                     instance.add(x);
                     instance.add(y);
                     instance.add(z);
@@ -68,21 +67,17 @@ public class Solution{
                         for(int index : indexes){
                             subset.remove(index);
                         }
-                        indexes.remove(0);
-                        indexes.remove(0);
-                        indexes.remove(0);
+                        indexes = new ArrayList<Integer>();
                         choose(size-3);
-                        subset.add(x);
-                        subset.add(y);
-                        subset.add(z);
+                        subset.add(0,x);
+                        subset.add(j,y);
+                        subset.add(k,z);
                     } else {
                         //print
                         //System.out.println(instance);
                         counter++;
                         //reset
-                        indexes.remove(0);
-                        indexes.remove(0);
-                        indexes.remove(0);
+                        indexes = new ArrayList<Integer>();
                     }
                     instance.remove(instance.size()-1);
                     instance.remove(instance.size()-1);
