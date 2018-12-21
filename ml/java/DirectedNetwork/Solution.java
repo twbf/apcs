@@ -41,7 +41,9 @@ public class Solution{
         all = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15));
         subset = all;
         instance = new ArrayList<Integer>();
-        indexes = new ArrayList<Integer>();
+        for(int i = 0; i<all.size(); i++){
+            instance.add(-1);
+        }
 
         counter = 0;
         choose(all.size());
@@ -51,23 +53,20 @@ public class Solution{
     public void choose(int size){
         int x,y,z;
         int jtemp, ktemp, zerotemp;
+        int instanceCounter;
             for(int j = 1; j < size; j++){
                 for(int k = j+1; k < size; k++){
                     jtemp = j;
                     ktemp = k;
                     zerotemp = 0;
-                    for(int h = 0; h<=jtemp; h++){
-                        if (subset.get(h) == -1){
-                            jtemp++;
-                        }
-                    }
-                    for(int h = 0; h<=zerotemp; h++){
-                        if (subset.get(h) == -1){
-                            zerotemp++;
-                        }
-                    }
                     for(int h = 0; h<=ktemp; h++){
                         if (subset.get(h) == -1){
+                            if (h <= zerotemp){
+                                zerotemp++;
+                            }
+                            if (h <= jtemp){
+                                jtemp++;
+                            }
                             ktemp++;
                         }
                     }
@@ -99,7 +98,7 @@ public class Solution{
             }
     }
 
-    public void score(){ // scors the instance variable with the grouping one
+    public void score(){ // scores the instance variable with the grouping one
         int outScore = 0;
         int count;
         //for(int i = 0; i<numGroups; i++){
