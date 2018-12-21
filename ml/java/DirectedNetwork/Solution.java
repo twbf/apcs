@@ -50,27 +50,41 @@ public class Solution{
 
     public void choose(int size){
         int x,y,z;
+        int jtemp, ktemp, zerotemp;
             for(int j = 1; j < size; j++){
                 for(int k = j+1; k < size; k++){
-                    x = subset.get(0);
-                    y = subset.get(j);
-                    z = subset.get(k);
+                    jtemp = j;
+                    ktemp = k;
+                    zerotemp = 0;
+                    for(int h = 0; h<=jtemp; h++){
+                        if (subset.get(h) == -1){
+                            jtemp++;
+                        }
+                    }
+                    for(int h = 0; h<=zerotemp; h++){
+                        if (subset.get(h) == -1){
+                            zerotemp++;
+                        }
+                    }
+                    for(int h = 0; h<=ktemp; h++){
+                        if (subset.get(h) == -1){
+                            ktemp++;
+                        }
+                    }
+                    x = subset.get(zerotemp);
+                    y = subset.get(jtemp);
+                    z = subset.get(ktemp);
                     instance.add(x);
                     instance.add(y);
                     instance.add(z);
                     if(size-3>0){
-                        indexes.add(0);
-                        indexes.add(j);
-                        indexes.add(k);
-                        Collections.sort(indexes, Collections.reverseOrder());
-                        for(int index : indexes){
-                            subset.remove(index);
-                        }
-                        indexes = new ArrayList<Integer>();
+                        subset.set(zerotemp, -1);
+                        subset.set(jtemp, -1);
+                        subset.set(ktemp, -1);
                         choose(size-3);
-                        subset.add(0,x);
-                        subset.add(j,y);
-                        subset.add(k,z);
+                        subset.set(zerotemp,x);
+                        subset.set(jtemp,y);
+                        subset.set(ktemp,z);
                     } else {
                         //print
                         //System.out.println(instance);
