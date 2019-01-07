@@ -96,7 +96,7 @@ num_sampled = 64  # Number of negative examples to sample.
 # construction are also the most frequent. These 3 variables are used only for
 # displaying model accuracy, they don't affect calculation.
 valid_size = 16  # Random set of words to evaluate similarity on.
-valid_window = 1000  # Only pick dev samples in the head of the distribution.
+valid_window = 200  # Only pick dev samples in the head of the distribution.
 valid_examples = np.random.choice(valid_window, valid_size, replace=False)
 
 graph = tf.Graph()
@@ -147,7 +147,7 @@ with graph.as_default():
   with tf.name_scope('optimizer'):
     optimizer = tf.train.GradientDescentOptimizer(1.0).minimize(loss)
 
-  # Compute the cosine similarity between minibatch examples and all embeddings.
+  # Compute the cosine similarity between minibatch examples (just the ones to display) and all embeddings.
   norm = tf.sqrt(tf.reduce_sum(tf.square(embeddings), 1, keepdims=True))
   normalized_embeddings = embeddings / norm
   valid_embeddings = tf.nn.embedding_lookup(normalized_embeddings,
