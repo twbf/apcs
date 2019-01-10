@@ -17,7 +17,7 @@ vocabulary = map(str.lower, vocabulary)
 print('Data size', len(vocabulary))
 
 # Step 2: Build the dictionary and replace rare words with UNK token.
-vocabulary_size = 100000
+vocabulary_size = 200
 
 
 def build_dataset(words, n_words):
@@ -95,7 +95,7 @@ num_sampled = 64  # Number of negative examples to sample.
 # validation samples to the words that have a low numeric ID, which by
 # construction are also the most frequent. These 3 variables are used only for
 # displaying model accuracy, they don't affect calculation.
-valid_size = 16  # Random set of words to evaluate similarity on.
+valid_size = 200  # Random set of words to evaluate similarity on.
 valid_window = 200  # Only pick dev samples in the head of the distribution.
 valid_examples = np.random.choice(valid_window, valid_size, replace=False)
 
@@ -208,3 +208,7 @@ with tf.Session(graph=graph) as session:
           log_str = '%s %s,' % (log_str, close_word)
         print(log_str)
   final_embeddings = normalized_embeddings.eval()
+
+def printPointSequance():
+    for i in xrange(valid_size):
+        
