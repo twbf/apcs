@@ -8,11 +8,11 @@ public class Ex11 {
         System.out.println(out);
     }
     public static Set<Integer> symmetricSetDifference(Set<Integer> s1, Set<Integer> s2){
-        Set<Integer> t1 = s1;
-        Set<Integer> t2 = s2;
-        s2.removeAll(t1);
-        s1.removeAll(t2);
-        s2.addAll(s1);
-        return s2;
+        Set<Integer> t1 = new HashSet<Integer>(s1);
+        Set<Integer> t2 = new HashSet<Integer>(s2);
+        t2.removeAll(s1);
+        t1.removeAll(s2);
+        t2.addAll(t1);
+        return t2;
     }
 }
