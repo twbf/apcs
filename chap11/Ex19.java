@@ -24,11 +24,14 @@ public class Ex19 {
 
         Set<Integer> intSet = test.keySet();
         int min = 100;
+        int index = 0;
         for(int x:intSet){
             if(test.get(x)< min){
                 min = test.get(x);
+                index = x;
             }
         }
-        return min;
+        return index;
+        
     }
 }

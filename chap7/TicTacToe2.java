@@ -8,22 +8,21 @@ import javax.swing.border.*;
 import javax.swing.event.*;
 
 
-public class TicTacToe2{
+public class TicTacToe2 implements Serializable {
 
-    //notes
-    //game play
-    //make board cleaner
+    private static final long serialVersionUID = 1;
 
-    private int[][] board;
-    private JPanel[][] panel;
-    private JButton[][] buttons;
-    private JFrame frame;
-    private JPanel gridPanel;
-    private JLabel label;
-    private int sideGoingFirst = 1;
+    public int[][] board;
+    public JPanel[][] panel;
+    public JButton[][] buttons;
+    public JFrame frame;
+    public JPanel gridPanel;
+    public JLabel label;
+    public int sideGoingFirst = 1;
 
-    public static void main(String args[]) throws FileNotFoundException{
-        TicTacToe2 b = new TicTacToe2();
+    public static void main(String args[]) throws FileNotFoundException, ClassNotFoundException {
+        TicTacToe2 b = openGame();
+        closeGame(b);
     }
 
 
@@ -33,7 +32,6 @@ public class TicTacToe2{
         frame.setTitle("Tic-Tac-Toe");
         frame.setSize(1240,800);
         frame.setLayout(new BorderLayout());
-
         this.panel = new JPanel[3][3];
         this.buttons = new JButton[3][3];
         this.board = new int[3][3];
@@ -44,7 +42,30 @@ public class TicTacToe2{
         start();
     }
 
-    public class PaintPanel extends JPanel{
+    public static void closeGame(TicTacToe2 b){ //serialize
+        try{
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("gameState2.ser"));
+            os.writeObject(b);
+            os.close();
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
+        b = null;
+    }
+
+    public static TicTacToe2 openGame() throws FileNotFoundException, ClassNotFoundException{
+        //TicTacToe2 tic = new TicTacToe2();
+        TicTacToe2 tic;
+        try{
+            ObjectInputStream is = new ObjectInputStream(new FileInputStream("gameState2.ser"));
+            tic = (TicTacToe2) is.readObject();
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
+        return tic;
+    }
+
+    public class PaintPanel extends JPanel implements Serializable{
         public PaintPanel(){
             JPanel gridPanel = new JPanel();
         }
@@ -87,7 +108,7 @@ public class TicTacToe2{
         frame.setVisible(true);
     }
 
-    public class Button implements ActionListener{
+    public class Button implements ActionListener, Serializable{
         public void actionPerformed(ActionEvent e){
             for(int i = 0; i<3; i++){
                 for(int j = 0; j<3; j++){
