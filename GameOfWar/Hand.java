@@ -7,6 +7,8 @@ public class Hand {
     private int side;
 
     public Hand(Deck d, int side){
+        this.hand = new ArrayList<Card>();
+        this.accumulated = new ArrayList<Card>();
         this.side = side;
         for(int i = side*26; i<26+side*26; i++){
             hand.add(d.getCard(i));

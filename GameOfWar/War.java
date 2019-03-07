@@ -34,6 +34,7 @@ public class War{
 
         frame.add(panel, BorderLayout.CENTER);
         frame.add(buttonPanel, BorderLayout.SOUTH);
+        frame.setVisible(true);
 
         Deck d = new Deck();
         d.shuffle();
@@ -49,13 +50,13 @@ public class War{
 
     public void start(){
         Card card1 = h1.flip();
-        Card card2 = h1.flip();
+        Card card2 = h2.flip();
         int num1 = card1.getVal();
         int num2 = card2.getVal();
 
         //display cards
         l1.setText("" + num1);
-        l1.setText("" + num2);
+        l2.setText("" + num2);
 
         //compare
         if(num1>num2){
