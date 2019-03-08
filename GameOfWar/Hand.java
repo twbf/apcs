@@ -21,21 +21,21 @@ public class Hand {
 
     public Card flip(){
         if (hand.size() == 0){
-            hand = accumulated;
-            accumulated = null;
+            hand = new ArrayList<Card>(accumulated);
+            accumulated = new ArrayList<Card>();
             shuffle();
+        } else if (hand.size() == 0){
+            return null // you won
         }
-        return hand.get(0);
-    }
-
-    public void won(Card other){
-        accumulated.add(hand.get(0));
-        accumulated.add(other);
+        Card c = hand.get(0);
         hand.remove(0);
+        return c;
     }
 
-    public void lost(){
-        hand.remove(0);
+    public void won(ArrayList<Card> cards){
+        for (Card card: cards){
+            accumulated.add(card);
+        }
+        System.out.println("Side: " + side + "   Cards: " + (hand.size() + accumulated.size()));
     }
-
 }

@@ -49,10 +49,11 @@ public class War{
     }
 
     public void start(){
-        Card card1 = h1.flip();
-        Card card2 = h2.flip();
-        int num1 = card1.getVal();
-        int num2 = card2.getVal();
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(h1.flip());
+        cards.add(h2.flip());
+        int num1 = cards.get(0).getVal();
+        int num2 = cards.get(1).getVal();
 
         //display cards
         l1.setText("" + num1);
@@ -60,13 +61,24 @@ public class War{
 
         //compare
         if(num1>num2){
-            h1.won(card2);
-            h2.lost();
+            h1.won(cards);
         } else if(num2>num1){
-            h2.won(card1);
-            h1.lost();
-        } else {
-            //tie
+            h2.won(cards);
+        } else { // tie
+            //cards
+            cards.add(h1.flip());
+            cards.add(h2.flip());
+            cards.add(h1.flip());
+            cards.add(h2.flip());
+
+            cards.add(h1.flip());
+            cards.add(h2.flip());
+
+            if(cards.get(6).getVal()<cards.get(7).getVal()){
+                h2.won(cards);
+            } else {
+                h1.won(cards);  //wrong
+            }
         }
 
 
