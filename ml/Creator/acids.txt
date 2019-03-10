@@ -1,0 +1,18 @@
+public class TYPE
+public TYPE NAME
+
+
+{
+}
+
+(
+)
+
+if
+while
+for
+
+return
+print
+
+go protein ID
