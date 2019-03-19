@@ -21,11 +21,12 @@ public class Hand {
 
     public Card flip(){
         if (hand.size() == 0){
+            if (accumulated.size() == 0){
+                return null; // you won
+            }
             hand = new ArrayList<Card>(accumulated);
             accumulated = new ArrayList<Card>();
             shuffle();
-        } else if (hand.size() == 0){
-            return null // you won
         }
         Card c = hand.get(0);
         hand.remove(0);

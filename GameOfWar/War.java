@@ -3,12 +3,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.util.*;
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.border.*;
+import javax.swing.event.*;
 
 public class War{
     private Hand h1;
     private Hand h2;
     private JLabel l1;
     private JLabel l2;
+    private CardPanel panel;
 
     public static void main(String[] args) {
         War a = new War();
@@ -21,7 +30,7 @@ public class War{
         frame.setResizable(false);
 
         //card display
-        JPanel panel = new JPanel();
+        CardPanel panel = new CardPanel();
         this.l1 = new JLabel("You Should Play");
         this.l2 = new JLabel("This is computer");
         panel.add(l1);
@@ -52,18 +61,25 @@ public class War{
         ArrayList<Card> cards = new ArrayList<Card>();
         cards.add(h1.flip());
         cards.add(h2.flip());
-        int num1 = cards.get(0).getVal();
-        int num2 = cards.get(1).getVal();
+        Card one = cards.get(0);
+        Card two = cards.get(1);
+        int num1 = one.getVal();
+        int num2 = two.getVal();
 
         //display cards
+
         l1.setText("" + num1);
         l2.setText("" + num2);
+
+        panel.display(one, two);
 
         //compare
         if(num1>num2){
             h1.won(cards);
+            panel.play(true);
         } else if(num2>num1){
             h2.won(cards);
+            panel.play(false);
         } else { // tie
             //cards
             cards.add(h1.flip());
