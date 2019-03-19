@@ -11,8 +11,14 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
+import java.util.concurrent.TimeUnit;
 
-public class War{
+// next class
+// add won
+// add tied
+// add delay
+
+public class War {
     private Hand h1;
     private Hand h2;
     private JLabel l1;
@@ -70,15 +76,15 @@ public class War{
         l1.setText("" + h1.getScore());
         l2.setText("" + h2.getScore());
 
-        panel.display(one, two);
+        panel.display(one, two, false);
 
         //compare
         if(num1>num2){
             h1.won(cards);
-            panel.play(true);
+            //panel.play(1);
         } else if(num2>num1){
             h2.won(cards);
-            panel.play(false);
+            //panel.play(2);
         } else { // tie
             //cards
             cards.add(h1.flip());
@@ -88,7 +94,12 @@ public class War{
 
             cards.add(h1.flip());
             cards.add(h2.flip());
+            panel.display(cards.get(6), cards.get(7), true);
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch(InterruptedException ex){
 
+            }
             if(cards.get(6).getVal()<cards.get(7).getVal()){
                 h2.won(cards);
             } else {
