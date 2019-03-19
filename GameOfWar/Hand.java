@@ -32,7 +32,9 @@ public class Hand {
         hand.remove(0);
         return c;
     }
-
+    public int getScore(){
+        return accumulated.size()+ hand.size();
+    }
     public void won(ArrayList<Card> cards){
         for (Card card: cards){
             accumulated.add(card);

@@ -3,14 +3,23 @@ import java.util.*;
 import java.lang.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 public class CardPanel extends JPanel{
-    BufferedImage image=new BufferedImage("Image.png");
-    BufferedImage ONE=new BufferedImage();
-    int i=0;
+
+    BufferedImage image = null;
+    BufferedImage imageONE = null;
+    BufferedImage imageTWO = null;;
+
     public CardPanel(){
         JPanel panel = new JPanel();
-
+        try {
+            this.image = ImageIO.read(new File("Image.png"));
+            this.imageONE = new BufferedImage(360,540,image.getType());
+            this.imageTWO = new BufferedImage(360,540,image.getType());
+        } catch (IOException e) {
+        }
     }
 
     public void display(Card one, Card two){
@@ -20,10 +29,8 @@ public class CardPanel extends JPanel{
         int y2=30+570*two.getSuit();
         int width=360;
         int height=540;
-        BufferedImage ONE=new BufferedImage(width,height,image.getType());
-        ONE=image.getSubimage(x1,y1,width,height);
-        repaint();
-        ONE=image.getSubimage(x2,y2,width,height);
+        imageONE=image.getSubimage(x1,y1,width,height);
+        imageTWO=image.getSubimage(x2,y2,width,height);
         repaint();
     }
 
@@ -32,10 +39,7 @@ public class CardPanel extends JPanel{
     }
 
     public void paintComponent(Graphics g) {
-        g.fillRect(0, 0, 200, 200);
-        if(i%2==0){
-        g.drawImage(500,100,ONE);
-        }
-        g.drawImage(0,0,ONE);
+        g.drawImage(imageONE,100, 50,null);
+        g.drawImage(imageTWO,500, 50,null);
     }
 }

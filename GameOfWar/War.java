@@ -26,11 +26,10 @@ public class War{
     public War(){
         JFrame frame = new JFrame("Game of War");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(640,480);
-        frame.setResizable(false);
+        frame.setSize(1000,650);
 
         //card display
-        CardPanel panel = new CardPanel();
+        this.panel = new CardPanel();
         this.l1 = new JLabel("You Should Play");
         this.l2 = new JLabel("This is computer");
         panel.add(l1);
@@ -68,8 +67,8 @@ public class War{
 
         //display cards
 
-        l1.setText("" + num1);
-        l2.setText("" + num2);
+        l1.setText("" + h1.getScore());
+        l2.setText("" + h2.getScore());
 
         panel.display(one, two);
 
