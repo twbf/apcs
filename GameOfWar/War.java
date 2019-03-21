@@ -2,16 +2,14 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import java.util.*;
-import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.lang.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
-import java.util.concurrent.TimeUnit;
+
 
 // next class
 // add won
@@ -24,6 +22,9 @@ public class War {
     private JLabel l1;
     private JLabel l2;
     private CardPanel panel;
+    private ArrayList<Card> cards;
+    private JButton button;
+    private Timer time;
 
     public static void main(String[] args) {
         War a = new War();
@@ -41,7 +42,7 @@ public class War {
         panel.add(l1);
         panel.add(l2);
 
-        JButton button = new JButton("NEXT");
+        this.button = new JButton("NEXT");
         button.addActionListener(new WarListener()); // adds the listener
         JPanel buttonPanel=new JPanel();
         buttonPanel.add(button);
@@ -54,6 +55,8 @@ public class War {
         d.shuffle();
         this.h1 = new Hand(d,0);
         this.h2 = new Hand(d,1);
+        this.cards = new ArrayList<Card>();
+        this.time =null;
     }
 
     public class WarListener implements ActionListener{
@@ -62,8 +65,28 @@ public class War {
         }
     }
 
+    public class WarTieListener implements ActionListener{
+        public void actionPerformed(ActionEvent arg0) {
+            cards.add(h1.flip());
+            cards.add(h2.flip());
+            cards.add(h1.flip());
+            cards.add(h2.flip());
+
+            cards.add(h1.flip());
+            cards.add(h2.flip());
+            panel.display(cards.get(6), cards.get(7), true);
+            if(cards.get(6).getVal()<cards.get(7).getVal()){
+                h2.won(cards);
+            } else {
+                h1.won(cards);
+            }
+        }
+    }
+
+
+
     public void start(){
-        ArrayList<Card> cards = new ArrayList<Card>();
+        cards = new ArrayList<Card>();
         cards.add(h1.flip());
         cards.add(h2.flip());
         Card one = cards.get(0);
@@ -81,12 +104,10 @@ public class War {
         //compare
         if(num1>num2){
             h1.won(cards);
-            //panel.play(1);
         } else if(num2>num1){
             h2.won(cards);
-            //panel.play(2);
         } else { // tie
-            //cards
+
             cards.add(h1.flip());
             cards.add(h2.flip());
             cards.add(h1.flip());
@@ -95,15 +116,10 @@ public class War {
             cards.add(h1.flip());
             cards.add(h2.flip());
             panel.display(cards.get(6), cards.get(7), true);
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch(InterruptedException ex){
-
-            }
             if(cards.get(6).getVal()<cards.get(7).getVal()){
                 h2.won(cards);
             } else {
-                h1.won(cards);  //wrong
+                h1.won(cards);
             }
         }
 

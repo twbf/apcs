@@ -35,14 +35,14 @@ public class CardPanel extends JPanel{
         int y2=30+570*two.getSuit();
         int width=360;
         int height=540;
-        if (!tie){
-            imageONE=image.getSubimage(x1,y1,width,height);
-            imageTWO=image.getSubimage(x2,y2,width,height);
-        } else {
+        tie = isTie;
+        if (tie){
             tie_imageONE=image.getSubimage(x1,y1,width,height);
             tie_imageTWO=image.getSubimage(x2,y2,width,height);
+        } else {
+            imageONE=image.getSubimage(x1,y1,width,height);
+            imageTWO=image.getSubimage(x2,y2,width,height);
         }
-        tie = isTie;
         repaint();
     }
 
@@ -53,12 +53,14 @@ public class CardPanel extends JPanel{
     }
 
     public void paintComponent(Graphics g) {
-        if(!tie){
-            g.drawImage(imageONE,100, 50, null);
-            g.drawImage(imageTWO,500, 50, null);
-        } else {
-            g.drawImage(tie_imageONE,100, 150, null);
-            g.drawImage(tie_imageTWO,500, 150, null);
+        g.drawImage(imageONE,100, 50, null);
+        g.drawImage(imageTWO,500, 50, null);
+        if (tie){
+            g.fillRect(100,130,360,500);
+            g.fillRect(500,130,360,500);
+            g.drawImage(tie_imageONE,100, 200, null);
+            g.drawImage(tie_imageTWO,500, 200, null);
+
         }
     }
 }
