@@ -33,22 +33,28 @@ public class War {
     public War(){
         JFrame frame = new JFrame("Game of War");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000,650);
+        frame.setSize(1000,800);
 
         //card display
         this.panel = new CardPanel();
+
+        JPanel northPanel = new JPanel(new BorderLayout());
         this.l1 = new JLabel("You Should Play");
+        l1.setFont(new Font("Sans-Serif", Font.PLAIN, 40));
         this.l2 = new JLabel("This is computer");
-        panel.add(l1);
-        panel.add(l2);
+        l2.setFont(new Font("Sans-Serif", Font.PLAIN, 40));
+        northPanel.add(l1, BorderLayout.WEST);
+        northPanel.add(l2, BorderLayout.EAST);
 
         this.button = new JButton("NEXT");
         button.addActionListener(new WarListener()); // adds the listener
-        JPanel buttonPanel=new JPanel();
+        button.setPreferredSize(new Dimension(60, 60));
+        JPanel buttonPanel=new JPanel(new GridLayout(1,1));
         buttonPanel.add(button);
 
         frame.add(panel, BorderLayout.CENTER);
         frame.add(buttonPanel, BorderLayout.SOUTH);
+        frame.add(northPanel, BorderLayout.NORTH);
         frame.setVisible(true);
 
         Deck d = new Deck();

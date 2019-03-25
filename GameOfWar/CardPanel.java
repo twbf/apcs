@@ -13,6 +13,7 @@ public class CardPanel extends JPanel{
     BufferedImage imageTWO = null;
     BufferedImage tie_imageONE = null;
     BufferedImage tie_imageTWO = null;
+    BufferedImage back = null;
     boolean tie = false;
     int side = 0;
 
@@ -24,6 +25,8 @@ public class CardPanel extends JPanel{
             this.imageTWO = new BufferedImage(360,540,image.getType());
             this.tie_imageONE = new BufferedImage(360,540,image.getType());
             this.tie_imageTWO = new BufferedImage(360,540,image.getType());
+
+            this.back = ImageIO.read(new File("back.jpg"));
         } catch (IOException e) {
         }
     }
@@ -56,10 +59,15 @@ public class CardPanel extends JPanel{
         g.drawImage(imageONE,100, 50, null);
         g.drawImage(imageTWO,500, 50, null);
         if (tie){
-            g.fillRect(100,130,360,500);
-            g.fillRect(500,130,360,500);
-            g.drawImage(tie_imageONE,100, 200, null);
-            g.drawImage(tie_imageTWO,500, 200, null);
+            g.drawImage(back, 100,120,460,230,0,0,400,100, null);
+            g.drawImage(back, 100,190,460,290,0,0,400,100, null);
+            g.drawImage(back, 500,120,860,230,0,0,400,100, null);
+            g.drawImage(back, 500,190,860,290,0,0,400,100, null);
+            //g.drawImage(back, 500,130, null);
+            //g.fillRect(100,130,360,500);
+            //g.fillRect(500,130,360,500);
+            g.drawImage(tie_imageONE,100, 250, null);
+            g.drawImage(tie_imageTWO,500, 250, null);
 
         }
     }
