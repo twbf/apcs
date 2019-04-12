@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * The ElevensBoard class represents the board in a game of Elevens.
  */
-public class ElevensBoard extends Board {
+public class ThirteensBoard extends Board {
 
 	/**
 	 * The size (number of cards) on the board.
@@ -27,18 +27,18 @@ public class ElevensBoard extends Board {
 	 * The values of the cards for this game to be sent to the deck.
 	 */
 	private static final int[] POINT_VALUES =
-		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0, 0, 0};
+		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0};
 
 	/**
 	 * Flag used to control debugging print statements.
 	 */
-	private static final boolean I_AM_DEBUGGING = false;
+	private static final boolean I_AM_DEBUGGING = true;
 
 
 	/**
 	 * Creates a new <code>ElevensBoard</code> instance.
 	 */
-	 public ElevensBoard() {
+	 public ThirteensBoard() {
 	 	super(BOARD_SIZE, RANKS, SUITS, POINT_VALUES);
 	 }
 
@@ -53,10 +53,10 @@ public class ElevensBoard extends Board {
 	 */
 	@Override
 	public boolean isLegal(List<Integer> selectedCards) {
-        if (selectedCards.size() == 2) {
+        if (selectedCards.size() == 3) {
+            return containsJQK(selectedCards);
+		} else if (selectedCards.size() == 2) {
 			return containsPairSum11(selectedCards);
-		} else if (selectedCards.size() == 3) {
-			return containsJQK(selectedCards);
 		} else {
 			return false;
 		}
@@ -87,7 +87,7 @@ public class ElevensBoard extends Board {
 	private boolean containsPairSum11(List<Integer> selectedCards) {
         for (int i = 0; i < selectedCards.size(); i++) {
 			for (int j = i + 1; j < selectedCards.size(); j++) {
-				if (cardAt(selectedCards.get(i).intValue()).getPoint() + cardAt(selectedCards.get(j).intValue()).getPoint() == 11) {
+				if (cardAt(selectedCards.get(i).intValue()).getPoint() + cardAt(selectedCards.get(j).intValue()).getPoint() == 13) {
 					return true;
 				}
 			}
@@ -101,22 +101,23 @@ public class ElevensBoard extends Board {
 	 *                      of indexes into this board that are searched
 	 *                      to find a JQK group.
 	 * @return true if the board entries in selectedCards
-	 *              include a jack, a queen, and a king; false otherwise.
+	 *              include a king; false otherwise.
 	 */
 	private boolean containsJQK(List<Integer> selectedCards) {
-        boolean foundJack = false;
-		boolean foundQueen = false;
-		boolean foundKing = false;
-		for (Integer kObj : selectedCards) {
-			int k = kObj.intValue();
-			if (cardAt(k).rank().equals("jack")) {
-				foundJack = true;
-			} else if (cardAt(k).rank().equals("queen")) {
-				foundQueen = true;
-			} else if (cardAt(k).rank().equals("king")) {
-				foundKing = true;
-			}
-		}
-		return foundJack && foundQueen && foundKing;
+        boolean king = false;
+        boolean queen = false;
+        boolean jack = false;
+        for(Integer x: selectedCards){
+            if(cardAt(x).getRank().equals("jack")){
+                jack = true;
+            }
+            if(cardAt(x).getRank().equals("queen")){
+                queen = true;
+            }
+            if(cardAt(x).getRank().equals("king")){
+                king = true;
+            }
+        }
+        return king && queen && jack;
 	}
 }

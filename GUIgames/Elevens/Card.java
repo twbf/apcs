@@ -1,3 +1,5 @@
+import java.util.List;
+import java.util.ArrayList;
 
 public class Card{
     private String suit;
@@ -28,7 +30,7 @@ public class Card{
     public String getSuit(){
         return suit;
     }
-    
+
     public int getPoint(){
         return point;
     }
