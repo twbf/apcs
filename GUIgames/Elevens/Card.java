@@ -16,12 +16,12 @@ public class Card{
         return this.rank + " of " + this.suit + " (point value = " + this.point + ")";
     }
 
-    public boolean equals(Card other){
-        if(other.suit.equals(this.suit)&&other.rank.equals(this.rank)&&other.point==this.point){
-            return true;
-        }
-        return false;
-    }
+    //public boolean equals(Card other){
+        //if(other.suit.equals(this.suit)&&other.rank.equals(this.rank)&&other.point==this.point){
+        //    return true;
+        //}
+        //return false;
+    //}
 
     public String getRank(){
         return rank;
