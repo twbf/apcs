@@ -2,7 +2,7 @@ public class IntArrayWorker
 {
   /** two dimensional matrix */
   private int[][] matrix = null;
-  
+
   /** set the matrix to the passed one
     * @param theMatrix the one to use
     */
@@ -10,24 +10,61 @@ public class IntArrayWorker
   {
     matrix = theMatrix;
   }
-  
+
   /**
-   * Method to return the total 
+   * Method to return the total
    * @return the total of the values in the array
    */
   public int getTotal()
   {
     int total = 0;
-    for (int row = 0; row < matrix.length; row++)
+    for (int[] row: matrix)
     {
-      for (int col = 0; col < matrix[0].length; col++)
+      for (int element: row)
       {
-        total = total + matrix[row][col];
+        total += element;
       }
     }
     return total;
   }
-  
+
+  public getCount(int target){
+      int total = 0;
+      for (int[] row: matrix)
+      {
+        for (int element: row)
+        {
+          if (element == target){
+              total++;
+          }
+        }
+      }
+      return total;
+  }
+
+  public getLargest(){
+      int max = 0;
+      for (int[] row: matrix)
+      {
+        for (int element: row)
+        {
+          if (element > max){
+              max = element;
+          }
+        }
+      }
+      return max;
+  }
+
+  public getColTotal(int col){
+      int total = 0;
+      for (int[] row: matrix)
+      {
+        total += row[col]
+      }
+      return total;
+  }
+
   /**
    * Method to return the total using a nested for-each loop
    * @return the total of the values in the array
@@ -44,7 +81,7 @@ public class IntArrayWorker
     }
     return total;
   }
-  
+
   /**
    * Method to fill with an increasing count
    */
@@ -61,7 +98,7 @@ public class IntArrayWorker
       }
     }
   }
-  
+
   /**
    * print the values in the array in rows and columns
    */
@@ -77,16 +114,16 @@ public class IntArrayWorker
     }
     System.out.println();
   }
-  
-  
-  /** 
+
+
+  /**
    * fill the array with a pattern
    */
   public void fillPattern1()
   {
     for (int row = 0; row < matrix.length; row++)
     {
-      for (int col = 0; col < matrix[0].length; 
+      for (int col = 0; col < matrix[0].length;
            col++)
       {
         if (row < col)
@@ -98,5 +135,5 @@ public class IntArrayWorker
       }
     }
   }
- 
+
 }
