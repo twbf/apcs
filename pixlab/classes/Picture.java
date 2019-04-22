@@ -326,6 +326,29 @@ public class Picture extends SimplePicture
     }
   }
 
+  public void copy(Picture fromPic, int startRow, int startCol, int width, int height)
+  {
+    Pixel fromPixel = null;
+    Pixel toPixel = null;
+    Pixel[][] toPixels = this.getPixels2D();
+    Pixel[][] fromPixels = fromPic.getPixels2D();
+    for (int fromRow = 0, toRow = startRow;
+         fromRow < height &&
+         toRow < toPixels.length;
+         fromRow++, toRow++)
+    {
+      for (int fromCol = 0, toCol = startCol;
+           fromCol < width &&
+           toCol < toPixels[0].length;
+           fromCol++, toCol++)
+      {
+        fromPixel = fromPixels[fromRow][fromCol];
+        toPixel = toPixels[toRow][toCol];
+        toPixel.setColor(fromPixel.getColor());
+      }
+    }
+  }
+
   /** Method to create a collage of several pictures */
   public void createCollage()
   {
@@ -370,6 +393,34 @@ public class Picture extends SimplePicture
     }
   }
 
+  public void edgeDetectionPlus(int edgeDist)
+  {
+    Pixel leftPixel = null;
+    Pixel rightPixel = null;
+    Pixel[][] pixels = this.getPixels2D();
+    Color rightColor = null;
+    for (int row = 0; row < pixels.length-1; row++)
+    {
+      for (int col = 0;
+           col < pixels[0].length-1; col++)
+      {
+        leftPixel = pixels[row][col];
+        rightPixel = pixels[row][col+1];
+        rightColor = rightPixel.getColor();
+        if (leftPixel.colorDistance(rightColor) > edgeDist){
+          leftPixel.setColor(Color.BLACK);
+        } else {
+            leftPixel = pixels[row][col];
+            rightPixel = pixels[row+1][col];
+            rightColor = rightPixel.getColor();
+            if (leftPixel.colorDistance(rightColor) >
+                edgeDist)
+              leftPixel.setColor(Color.BLACK);
+          leftPixel.setColor(Color.WHITE);
+        }
+      }
+    }
+  }
 
   /* Main method for testing - each class in Java can have a main
    * method
