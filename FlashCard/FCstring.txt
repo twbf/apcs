@@ -1,0 +1,2 @@
+what does tString() do : dskafhl
+what is a String? : object
